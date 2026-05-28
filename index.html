@@ -1,1181 +1,791 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Umang Sutarsandhiya – Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
-  <style>
-    :root {
-      --bg: #0a0a0f;
-      --surface: #111118;
-      --card: #16161f;
-      --border: #252535;
-      --accent: #7c5cfc;
-      --accent2: #ff6b6b;
-      --accent3: #00d9a6;
-      --text: #e8e8f0;
-      --muted: #888899;
-      --white: #ffffff;
-      --grad: linear-gradient(135deg, #7c5cfc 0%, #ff6b6b 100%);
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    /* === NOISE OVERLAY === */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.5;
-    }
-
-    /* === NAV === */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 1.2rem 2.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(10,10,15,0.85);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(124,92,252,0.15);
-    }
-
-    .nav-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1.3rem;
-      background: var(--grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: -0.02em;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--muted);
-      font-size: 0.9rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      transition: color 0.25s;
-    }
-
-    .nav-links a:hover { color: var(--accent); }
-
-    /* === HERO === */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      padding: 7rem 2.5rem 4rem;
-      text-align: center;
-      overflow: hidden;
-    }
-
-    .hero-bg-glow {
-      position: absolute;
-      width: 700px; height: 700px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(124,92,252,0.18) 0%, transparent 70%);
-      top: 50%; left: 50%;
-      transform: translate(-50%, -55%);
-      pointer-events: none;
-    }
-
-    .hero-bg-glow2 {
-      position: absolute;
-      width: 400px; height: 400px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,107,107,0.1) 0%, transparent 70%);
-      bottom: 10%; right: 10%;
-      pointer-events: none;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(124,92,252,0.12);
-      border: 1px solid rgba(124,92,252,0.3);
-      border-radius: 100px;
-      padding: 0.4rem 1.1rem;
-      font-size: 0.8rem;
-      color: #b19dff;
-      letter-spacing: 0.06em;
-      font-weight: 500;
-      margin-bottom: 1.8rem;
-      animation: fadeInUp 0.6s ease both;
-    }
-
-    .hero-badge::before {
-      content: '';
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: var(--accent3);
-      box-shadow: 0 0 8px var(--accent3);
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.6; transform: scale(1.3); }
-    }
-
-    .hero-name {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(3rem, 8vw, 6rem);
-      line-height: 1.0;
-      letter-spacing: -0.04em;
-      color: var(--white);
-      animation: fadeInUp 0.7s 0.1s ease both;
-    }
-
-    .hero-name span {
-      background: var(--grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-title {
-      font-family: 'DM Sans', sans-serif;
-      font-size: clamp(1rem, 2.5vw, 1.3rem);
-      color: var(--muted);
-      font-weight: 300;
-      margin: 1.2rem 0 2.2rem;
-      letter-spacing: 0.02em;
-      animation: fadeInUp 0.7s 0.2s ease both;
-    }
-
-    .hero-cta {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      animation: fadeInUp 0.7s 0.3s ease both;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.8rem 1.8rem;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.25s;
-      cursor: pointer;
-      border: none;
-      font-family: 'DM Sans', sans-serif;
-    }
-
-    .btn-primary {
-      background: var(--grad);
-      color: #fff;
-      box-shadow: 0 4px 24px rgba(124,92,252,0.35);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(124,92,252,0.5);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-
-    .btn-outline:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: rgba(124,92,252,0.06);
-    }
-
-    /* === SECTIONS === */
-    section {
-      position: relative;
-      z-index: 1;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 5rem 2.5rem;
-    }
-
-    .section-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      color: var(--accent);
-      text-transform: uppercase;
-      margin-bottom: 0.6rem;
-    }
-
-    .section-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(2rem, 4vw, 3rem);
-      letter-spacing: -0.03em;
-      color: var(--white);
-      line-height: 1.1;
-      margin-bottom: 1rem;
-    }
-
-    .section-title span {
-      background: var(--grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .section-desc {
-      color: var(--muted);
-      font-size: 1rem;
-      max-width: 560px;
-      margin-bottom: 3rem;
-    }
-
-    hr.divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 0;
-    }
-
-    /* === ABOUT === */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: start;
-    }
-
-    .about-text p {
-      color: var(--muted);
-      font-size: 1rem;
-      margin-bottom: 1.2rem;
-      line-height: 1.8;
-    }
-
-    .about-text p strong { color: var(--text); }
-
-    .about-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-
-    .stat-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.4rem;
-      transition: border-color 0.3s;
-    }
-
-    .stat-card:hover { border-color: var(--accent); }
-
-    .stat-num {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 2.2rem;
-      background: var(--grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .stat-label {
-      font-size: 0.82rem;
-      color: var(--muted);
-      margin-top: 0.3rem;
-    }
-
-    /* === SKILLS === */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.2rem;
-    }
-
-    .skill-group {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.6rem;
-      transition: all 0.3s;
-    }
-
-    .skill-group:hover {
-      border-color: rgba(124,92,252,0.4);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 32px rgba(124,92,252,0.1);
-    }
-
-    .skill-group-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 0.85rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1rem;
-    }
-
-    .skill-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .tag {
-      background: rgba(124,92,252,0.1);
-      border: 1px solid rgba(124,92,252,0.2);
-      color: #c4b5fd;
-      font-size: 0.8rem;
-      padding: 0.3rem 0.8rem;
-      border-radius: 100px;
-      font-weight: 500;
-      transition: all 0.2s;
-    }
-
-    .tag:hover {
-      background: rgba(124,92,252,0.25);
-      border-color: rgba(124,92,252,0.5);
-    }
-
-    .tag.green {
-      background: rgba(0,217,166,0.1);
-      border-color: rgba(0,217,166,0.25);
-      color: #6ee7cc;
-    }
-
-    .tag.red {
-      background: rgba(255,107,107,0.1);
-      border-color: rgba(255,107,107,0.25);
-      color: #fca5a5;
-    }
-
-    /* === PROJECTS === */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .project-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      transition: all 0.35s;
-      position: relative;
-    }
-
-    .project-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--grad);
-      opacity: 0;
-      transition: opacity 0.35s;
-      pointer-events: none;
-      border-radius: 16px;
-    }
-
-    .project-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(124,92,252,0.5);
-      box-shadow: 0 16px 48px rgba(124,92,252,0.15);
-    }
-
-    .project-card:hover::before { opacity: 0.04; }
-
-    .project-banner {
-      height: 140px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3.5rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .project-banner.food {
-      background: linear-gradient(135deg, #1a1040 0%, #2d1b69 50%, #1a0a2e 100%);
-    }
-
-    .project-banner.ride {
-      background: linear-gradient(135deg, #0a1a1a 0%, #0d3533 50%, #0a1015 100%);
-    }
-
-    .project-banner.salon {
-      background: linear-gradient(135deg, #1a0a1a 0%, #3d1060 50%, #1a0a2e 100%);
-    }
-
-    .project-banner.qr {
-      background: linear-gradient(135deg, #0a1020 0%, #0d2a5e 50%, #0a0a1a 100%);
-    }
-
-    .project-banner::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.4) 100%);
-    }
-
-    .project-emoji {
-      position: relative;
-      z-index: 1;
-      filter: drop-shadow(0 4px 16px rgba(0,0,0,0.5));
-    }
-
-    .project-body { padding: 1.6rem; }
-
-    .project-meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 0.7rem;
-    }
-
-    .project-name {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1.15rem;
-      color: var(--white);
-    }
-
-    .project-type {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      padding: 0.25rem 0.7rem;
-      border-radius: 100px;
-      background: rgba(124,92,252,0.15);
-      color: #a78bfa;
-      border: 1px solid rgba(124,92,252,0.25);
-    }
-
-    .project-desc {
-      color: var(--muted);
-      font-size: 0.875rem;
-      line-height: 1.7;
-      margin-bottom: 1.2rem;
-    }
-
-    .project-tech {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-bottom: 1.4rem;
-    }
-
-    .tech-tag {
-      font-size: 0.72rem;
-      padding: 0.2rem 0.6rem;
-      border-radius: 100px;
-      border: 1px solid var(--border);
-      color: var(--muted);
-    }
-
-    .project-links {
-      display: flex;
-      gap: 0.7rem;
-    }
-
-    .project-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.5rem 1.1rem;
-      border-radius: 7px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-
-    .project-link.live {
-      background: var(--grad);
-      color: #fff;
-      box-shadow: 0 2px 12px rgba(124,92,252,0.3);
-    }
-
-    .project-link.live:hover {
-      box-shadow: 0 4px 20px rgba(124,92,252,0.5);
-      transform: translateY(-1px);
-    }
-
-    .project-link.source {
-      background: transparent;
-      color: var(--muted);
-      border: 1px solid var(--border);
-    }
-
-    .project-link.source:hover {
-      color: var(--text);
-      border-color: rgba(124,92,252,0.4);
-    }
-
-    /* === FEATURED BADGE === */
-    .featured-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      color: #fbbf24;
-      background: rgba(251,191,36,0.1);
-      border: 1px solid rgba(251,191,36,0.25);
-      border-radius: 100px;
-      padding: 0.2rem 0.65rem;
-      margin-bottom: 0.6rem;
-    }
-
-    /* === EXPERIENCE === */
-    .exp-list { display: flex; flex-direction: column; gap: 1.2rem; }
-
-    .exp-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.6rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 1rem;
-      transition: all 0.3s;
-    }
-
-    .exp-card:hover {
-      border-color: rgba(124,92,252,0.4);
-      box-shadow: 0 4px 24px rgba(124,92,252,0.08);
-    }
-
-    .exp-company {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--accent3);
-      margin-bottom: 0.3rem;
-    }
-
-    .exp-role {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: var(--white);
-      margin-bottom: 0.5rem;
-    }
-
-    .exp-desc { color: var(--muted); font-size: 0.875rem; line-height: 1.7; }
-
-    .exp-period {
-      font-size: 0.8rem;
-      color: var(--muted);
-      white-space: nowrap;
-      background: rgba(255,255,255,0.05);
-      padding: 0.3rem 0.9rem;
-      border-radius: 100px;
-      border: 1px solid var(--border);
-    }
-
-    /* === EDUCATION === */
-    .edu-timeline { display: flex; flex-direction: column; gap: 0; }
-
-    .edu-item {
-      display: grid;
-      grid-template-columns: 48px 1fr;
-      gap: 1.5rem;
-      padding-bottom: 2.5rem;
-      position: relative;
-    }
-
-    .edu-item:last-child { padding-bottom: 0; }
-
-    .edu-item:last-child .edu-line { display: none; }
-
-    .edu-dot {
-      width: 48px; height: 48px;
-      border-radius: 50%;
-      background: rgba(124,92,252,0.15);
-      border: 2px solid rgba(124,92,252,0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      flex-shrink: 0;
-      position: relative;
-      z-index: 1;
-    }
-
-    .edu-line {
-      position: absolute;
-      left: 23px;
-      top: 52px;
-      bottom: 0;
-      width: 2px;
-      background: linear-gradient(to bottom, rgba(124,92,252,0.3), transparent);
-    }
-
-    .edu-year {
-      font-size: 0.75rem;
-      color: var(--accent);
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      margin-bottom: 0.3rem;
-    }
-
-    .edu-degree {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1.05rem;
-      color: var(--white);
-      margin-bottom: 0.25rem;
-    }
-
-    .edu-school {
-      font-size: 0.875rem;
-      color: var(--muted);
-      margin-bottom: 0.5rem;
-    }
-
-    .edu-score {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      font-size: 0.78rem;
-      font-weight: 600;
-      background: rgba(0,217,166,0.1);
-      color: var(--accent3);
-      border: 1px solid rgba(0,217,166,0.2);
-      padding: 0.25rem 0.7rem;
-      border-radius: 100px;
-    }
-
-    /* === CONTACT === */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.2rem;
-    }
-
-    .contact-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.6rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      text-decoration: none;
-      color: inherit;
-      transition: all 0.3s;
-    }
-
-    .contact-card:hover {
-      border-color: rgba(124,92,252,0.5);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 32px rgba(124,92,252,0.1);
-    }
-
-    .contact-icon {
-      width: 44px; height: 44px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      flex-shrink: 0;
-    }
-
-    .contact-icon.purple { background: rgba(124,92,252,0.2); }
-    .contact-icon.red { background: rgba(255,107,107,0.2); }
-    .contact-icon.green { background: rgba(0,217,166,0.2); }
-    .contact-icon.blue { background: rgba(59,130,246,0.2); }
-
-    .contact-label {
-      font-size: 0.75rem;
-      color: var(--muted);
-      margin-bottom: 0.2rem;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      font-weight: 600;
-    }
-
-    .contact-value {
-      font-size: 0.9rem;
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    /* === FOOTER === */
-    footer {
-      text-align: center;
-      padding: 3rem 2rem;
-      color: var(--muted);
-      font-size: 0.82rem;
-      border-top: 1px solid var(--border);
-      position: relative;
-      z-index: 1;
-    }
-
-    footer span {
-      background: var(--grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-weight: 600;
-    }
-
-    /* === ANIMATIONS === */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* === SCROLLBAR === */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: rgba(124,92,252,0.4); border-radius: 3px; }
-
-    /* === RESPONSIVE === */
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { gap: 1.2rem; }
-      section { padding: 4rem 1.5rem; }
-      .about-grid { grid-template-columns: 1fr; }
-      .contact-grid { grid-template-columns: 1fr; }
-      .exp-card { flex-direction: column; }
-      .hero { padding: 6rem 1.5rem 3rem; }
-    }
-
-    @media (max-width: 480px) {
-      .nav-links { display: none; }
-      .projects-grid { grid-template-columns: 1fr; }
-      .about-stats { grid-template-columns: 1fr 1fr; }
-    }
-  </style>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Umang Sutarsandhiya – Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0a0a0f;--card:#16161f;--border:#252535;--accent:#7c5cfc;--accent2:#ff6b6b;--accent3:#00d9a6;--text:#e8e8f0;--muted:#888899;--w:#fff;--grad:linear-gradient(135deg,#7c5cfc,#ff6b6b)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:1rem 2.5rem;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,15,.92);backdrop-filter:blur(18px);border-bottom:1px solid rgba(124,92,252,.15)}
+.nlogo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none}
+.nlinks{display:flex;gap:1.8rem;list-style:none}
+.nlinks a{text-decoration:none;color:var(--muted);font-size:.88rem;font-weight:500;letter-spacing:.04em;transition:color .25s;position:relative;padding-bottom:2px}
+.nlinks a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1.5px;background:var(--grad);transition:width .3s}
+.nlinks a:hover{color:var(--accent)}.nlinks a:hover::after{width:100%}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hbg span{width:22px;height:2px;background:var(--text);border-radius:2px;transition:.3s}
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;padding:7rem 2.5rem 4rem;text-align:center;overflow:hidden;z-index:1}
+.g1{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(124,92,252,.18),transparent 70%);top:50%;left:50%;transform:translate(-50%,-55%);pointer-events:none}
+.g2{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,107,.1),transparent 70%);bottom:10%;right:10%;pointer-events:none}
+.badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(124,92,252,.12);border:1px solid rgba(124,92,252,.3);border-radius:100px;padding:.4rem 1.1rem;font-size:.8rem;color:#b19dff;letter-spacing:.06em;font-weight:500;margin-bottom:1.8rem;animation:fu .6s ease both}
+.badge::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--accent3);box-shadow:0 0 8px var(--accent3);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.3)}}
+.hname{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.8rem,8vw,6rem);line-height:1;letter-spacing:-.04em;color:var(--w);animation:fu .7s .1s ease both}
+.hname span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hsub{font-size:clamp(.95rem,2.5vw,1.3rem);color:var(--muted);font-weight:300;margin:1.2rem 0 2.2rem;animation:fu .7s .2s ease both}
+.hcta{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fu .7s .3s ease both}
+@keyframes fu{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+/* BTNS */
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.7rem;border-radius:8px;font-size:.88rem;font-weight:500;text-decoration:none;transition:all .25s;cursor:pointer;border:none;font-family:'DM Sans',sans-serif}
+.btnp{background:var(--grad);color:#fff;box-shadow:0 4px 24px rgba(124,92,252,.35)}.btnp:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(124,92,252,.5)}
+.btno{background:transparent;color:var(--text);border:1px solid var(--border)}.btno:hover{border-color:var(--accent);color:var(--accent);background:rgba(124,92,252,.06)}
+/* SECTIONS */
+section{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:5rem 2.5rem}
+.slbl{font-size:.75rem;font-weight:600;letter-spacing:.15em;color:var(--accent);text-transform:uppercase;margin-bottom:.6rem}
+.stitle{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.9rem,4vw,3rem);letter-spacing:-.03em;color:var(--w);line-height:1.1;margin-bottom:1rem}
+.stitle span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sdesc{color:var(--muted);font-size:1rem;max-width:560px;margin-bottom:3rem}
+hr.dv{border:none;border-top:1px solid var(--border);margin:0}
+/* ABOUT */
+.ag{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.atext p{color:var(--muted);font-size:1rem;margin-bottom:1.2rem;line-height:1.85}
+.atext p strong{color:var(--text)}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.sc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.4rem;transition:border-color .3s}
+.sc:hover{border-color:var(--accent)}
+.snum{font-family:'Syne',sans-serif;font-weight:800;font-size:2.2rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.slb{font-size:.82rem;color:var(--muted);margin-top:.3rem}
+/* SKILLS */
+.skgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem}
+.skg{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.6rem;transition:all .3s}
+.skg:hover{border-color:rgba(124,92,252,.4);transform:translateY(-3px);box-shadow:0 8px 32px rgba(124,92,252,.1)}
+.skgt{font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
+.tags{display:flex;flex-wrap:wrap;gap:.5rem}
+.tag{background:rgba(124,92,252,.1);border:1px solid rgba(124,92,252,.2);color:#c4b5fd;font-size:.78rem;padding:.28rem .75rem;border-radius:100px;font-weight:500}
+.tag.g{background:rgba(0,217,166,.1);border-color:rgba(0,217,166,.25);color:#6ee7cc}
+.tag.r{background:rgba(255,107,107,.1);border-color:rgba(255,107,107,.25);color:#fca5a5}
+/* PROJECTS */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.pc{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all .35s}
+.pc:hover{transform:translateY(-6px);border-color:rgba(124,92,252,.5);box-shadow:0 16px 48px rgba(124,92,252,.15)}
+.pb{height:140px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative;overflow:hidden}
+.pb::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at center,transparent 30%,rgba(0,0,0,.4) 100%)}
+.pe{position:relative;z-index:1;filter:drop-shadow(0 4px 16px rgba(0,0,0,.5))}
+.pbd{padding:1.6rem}
+.feat{display:inline-flex;align-items:center;gap:.35rem;font-size:.7rem;font-weight:600;color:#fbbf24;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.25);border-radius:100px;padding:.2rem .65rem;margin-bottom:.6rem}
+.pmeta{display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem}
+.pname{font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:var(--w)}
+.ptype{font-size:.7rem;font-weight:600;padding:.22rem .65rem;border-radius:100px;background:rgba(124,92,252,.15);color:#a78bfa;border:1px solid rgba(124,92,252,.25)}
+.pdesc{color:var(--muted);font-size:.875rem;line-height:1.7;margin-bottom:1.2rem}
+.ptech{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.4rem}
+.tt{font-size:.72rem;padding:.2rem .6rem;border-radius:100px;border:1px solid var(--border);color:var(--muted)}
+.plinks{display:flex;gap:.7rem;flex-wrap:wrap}
+.pl{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem 1.1rem;border-radius:7px;font-size:.8rem;font-weight:500;text-decoration:none;transition:all .2s;cursor:pointer;border:none;font-family:'DM Sans',sans-serif}
+.pl.live{background:var(--grad);color:#fff;box-shadow:0 2px 12px rgba(124,92,252,.3)}.pl.live:hover{box-shadow:0 4px 20px rgba(124,92,252,.5);transform:translateY(-1px)}
+.pl.src{background:transparent;color:var(--muted);border:1px solid var(--border)}.pl.src:hover{color:var(--text);border-color:rgba(124,92,252,.4)}
+/* EXP / EDU / CONTACT */
+.ec{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.6rem 2rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;transition:all .3s;margin-bottom:1rem}
+.ec:hover{border-color:rgba(124,92,252,.4)}
+.eco{font-size:.75rem;font-weight:600;text-transform:uppercase;color:var(--accent3);margin-bottom:.3rem}
+.er{font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:var(--w);margin-bottom:.5rem}
+.ed{color:var(--muted);font-size:.875rem;line-height:1.7}
+.ep{font-size:.8rem;color:var(--muted);white-space:nowrap;background:rgba(255,255,255,.05);padding:.3rem .9rem;border-radius:100px;border:1px solid var(--border)}
+.ei{display:grid;grid-template-columns:48px 1fr;gap:1.5rem;padding-bottom:2.5rem;position:relative}
+.ei:last-child{padding-bottom:0}.ei:last-child .eline{display:none}
+.edot{width:48px;height:48px;border-radius:50%;background:rgba(124,92,252,.15);border:2px solid rgba(124,92,252,.4);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;position:relative;z-index:1}
+.eline{position:absolute;left:23px;top:52px;bottom:0;width:2px;background:linear-gradient(to bottom,rgba(124,92,252,.3),transparent)}
+.eyear{font-size:.75rem;color:var(--accent);font-weight:600;margin-bottom:.3rem}
+.edeg{font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;color:var(--w);margin-bottom:.25rem}
+.esch{font-size:.875rem;color:var(--muted);margin-bottom:.5rem}
+.escore{display:inline-flex;font-size:.78rem;font-weight:600;background:rgba(0,217,166,.1);color:var(--accent3);border:1px solid rgba(0,217,166,.2);padding:.25rem .7rem;border-radius:100px}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.cc{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.6rem;display:flex;align-items:center;gap:1rem;text-decoration:none;color:inherit;transition:all .3s}
+.cc:hover{border-color:rgba(124,92,252,.5);transform:translateY(-3px)}
+.ci{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.ci.pu{background:rgba(124,92,252,.2)}.ci.rd{background:rgba(255,107,107,.2)}.ci.gr{background:rgba(0,217,166,.2)}.ci.bl{background:rgba(59,130,246,.2)}
+.clbl{font-size:.75rem;color:var(--muted);margin-bottom:.2rem;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.cval{font-size:.9rem;color:var(--text);font-weight:500}
+footer{text-align:center;padding:3rem 2rem;color:var(--muted);font-size:.82rem;border-top:1px solid var(--border);position:relative;z-index:1}
+footer span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:600}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+/* ======= MODAL ======= */
+.mo{position:fixed;inset:0;background:rgba(5,5,10,.93);backdrop-filter:blur(12px);z-index:999;display:none;align-items:center;justify-content:center;padding:1rem}
+.mo.open{display:flex}
+.mdl{background:#111118;border:1px solid var(--border);border-radius:20px;width:100%;max-width:980px;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.6)}
+.mhd{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.6rem;border-bottom:1px solid var(--border);flex-shrink:0}
+.mtitle{font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:var(--w);display:flex;align-items:center;gap:.6rem}
+.mclose{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--muted);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.mclose:hover{background:rgba(255,107,107,.15);color:var(--accent2);border-color:rgba(255,107,107,.3)}
+.mbody{flex:1;overflow-y:auto}
+/* ========== FOOD DEMO ========== */
+.fd{font-family:'DM Sans',sans-serif;background:#0d0d14;min-height:100%}
+.fdnav{background:#13131e;padding:.9rem 1.4rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1e1e2e}
+.fdlogo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,#ff6b35,#ff3366);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.fdcbtn{background:linear-gradient(135deg,#ff6b35,#ff3366);color:#fff;border:none;padding:.5rem 1rem;border-radius:8px;font-size:.78rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:transform .2s}
+.fdcbtn:hover{transform:scale(1.05)}
+.fdhero{background:linear-gradient(135deg,#1a0a05,#2d1210);padding:2rem 1.4rem}
+.fdhero h2{font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;color:#fff;margin-bottom:.4rem}
+.fdhero p{color:#ff9a6c;font-size:.85rem}
+.fdsearch{display:flex;background:#1e1e2e;border:1px solid #2a2a3e;border-radius:10px;overflow:hidden;margin-top:1.2rem}
+.fdsearch input{flex:1;background:transparent;border:none;padding:.7rem 1rem;color:#e8e8f0;font-size:.85rem;font-family:'DM Sans',sans-serif;outline:none}
+.fdsearch input::placeholder{color:#555}
+.fdsearch button{background:linear-gradient(135deg,#ff6b35,#ff3366);border:none;padding:.7rem 1.1rem;color:#fff;cursor:pointer;font-size:.9rem}
+.fdcats{display:flex;gap:.7rem;padding:1.2rem 1.4rem;overflow-x:auto;scrollbar-width:none}
+.fdcats::-webkit-scrollbar{display:none}
+.catb{flex-shrink:0;padding:.45rem 1rem;border-radius:100px;border:1px solid #252535;background:transparent;color:#888;font-size:.8rem;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;white-space:nowrap}
+.catb.active,.catb:hover{background:linear-gradient(135deg,#ff6b35,#ff3366);border-color:transparent;color:#fff}
+.fdst{padding:.5rem 1.4rem .8rem;font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#e8e8f0}
+.rg{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;padding:0 1.4rem 1.4rem}
+.rc{background:#13131e;border:1px solid #1e1e2e;border-radius:12px;overflow:hidden;cursor:pointer;transition:all .25s}
+.rc:hover{transform:translateY(-3px);border-color:rgba(255,107,53,.3)}
+.rci{height:110px;display:flex;align-items:center;justify-content:center;font-size:3rem}
+.rcd{padding:.8rem}
+.rcn{font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;color:#e8e8f0;margin-bottom:.3rem}
+.rcm{display:flex;align-items:center;justify-content:space-between;font-size:.75rem}
+.rcr{color:#fbbf24;font-weight:600}.rct{color:#888}
+.rcg{display:inline-block;background:rgba(255,107,53,.12);color:#ff9a6c;font-size:.68rem;padding:.15rem .5rem;border-radius:4px;margin-top:.4rem}
+.csd{position:absolute;right:0;top:0;bottom:0;width:270px;background:#13131e;border-left:1px solid #1e1e2e;padding:1.2rem;transform:translateX(100%);transition:transform .35s;z-index:10;overflow-y:auto}
+.csd.open{transform:translateX(0)}
+.citm{display:flex;align-items:center;justify-content:space-between;padding:.7rem 0;border-bottom:1px solid #1e1e2e}
+.cinm{font-size:.82rem;color:#e8e8f0}.cipr{font-size:.82rem;color:#ff9a6c;font-weight:600}
+.qc{display:flex;align-items:center;gap:.4rem}
+.qb{width:22px;height:22px;border-radius:50%;background:rgba(255,107,53,.15);border:1px solid rgba(255,107,53,.3);color:#ff9a6c;font-size:.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.qb:hover{background:rgba(255,107,53,.3)}.qn{font-size:.82rem;color:#fff;min-width:16px;text-align:center}
+.ctot{margin-top:1rem;padding-top:1rem;border-top:1px solid #1e1e2e;display:flex;justify-content:space-between;font-weight:600;font-size:.9rem;color:#fff}
+.ckb{width:100%;margin-top:1rem;background:linear-gradient(135deg,#ff6b35,#ff3366);border:none;color:#fff;padding:.8rem;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.ckb:hover{transform:scale(1.02)}
+.osucc{display:none;text-align:center;padding:3rem 1rem}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+/* ========== RIDE DEMO ========== */
+.rd{font-family:'DM Sans',sans-serif;background:#080d0d;min-height:100%}
+.rdnav{background:#0d1414;padding:.9rem 1.4rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1a2a2a}
+.rdlogo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,#00d9a6,#00b4d8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.rdhero{background:linear-gradient(135deg,#050d0d,#0a1e1a);padding:1.8rem 1.4rem}
+.rdhero h2{font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;color:#fff;margin-bottom:.3rem}
+.rdhero p{color:#00d9a6;font-size:.83rem;margin-bottom:1.3rem}
+.rinpg{display:flex;flex-direction:column;gap:.7rem}
+.rinp{display:flex;align-items:center;gap:.7rem;background:#0d1a1a;border:1px solid #1a2e2e;border-radius:10px;padding:.75rem 1rem}
+.rdot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.rdot.gr{background:#00d9a6;box-shadow:0 0 8px #00d9a6}.rdot.re{background:#ff6b6b;box-shadow:0 0 8px #ff6b6b}
+.rinp input{flex:1;background:transparent;border:none;color:#e8e8f0;font-size:.85rem;font-family:'DM Sans',sans-serif;outline:none}
+.rinp input::placeholder{color:#446}
+.rtypes{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;padding:1.2rem 1.4rem}
+.rtype{background:#0d1414;border:1px solid #1a2a2a;border-radius:12px;padding:1rem .8rem;text-align:center;cursor:pointer;transition:all .25s}
+.rtype:hover,.rtype.sel{border-color:#00d9a6;background:rgba(0,217,166,.08)}
+.rtype .ric{font-size:1.8rem;display:block;margin-bottom:.4rem}
+.rtn{font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;color:#e8e8f0}
+.rtp{font-size:.75rem;color:#00d9a6;margin-top:.2rem}.rtt{font-size:.7rem;color:#556;margin-top:.1rem}
+.rbs{padding:0 1.4rem 1.4rem}
+.fbox{background:#0d1414;border:1px solid #1a2a2a;border-radius:10px;padding:1rem;margin-bottom:1rem}
+.fr{display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:.4rem}
+.fr:last-child{margin-bottom:0;padding-top:.6rem;border-top:1px solid #1a2a2a;font-weight:600;color:#fff}
+.fl{color:#556}.fv{color:#e8e8f0}
+.bkb{width:100%;background:linear-gradient(135deg,#00d9a6,#00b4d8);border:none;color:#fff;padding:.9rem;border-radius:12px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .25s}
+.bkb:hover{transform:scale(1.02);box-shadow:0 4px 20px rgba(0,217,166,.4)}
+.rmap{background:#0a1010;margin:0 1.4rem 1rem;border-radius:12px;border:1px solid #1a2a2a;position:relative;height:140px;overflow:hidden;padding:1rem}
+.rmaplbl{font-size:.72rem;color:#336;text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:.5rem}
+.mrd{position:absolute;background:#162020;border-radius:4px}
+.ddot{position:absolute;width:28px;height:28px;background:#00d9a6;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;box-shadow:0 0 16px rgba(0,217,166,.5);animation:dmv 4s ease-in-out infinite}
+@keyframes dmv{0%,100%{left:20%;top:40%}25%{left:45%;top:25%}50%{left:65%;top:50%}75%{left:40%;top:65%}}
+.ydot2{position:absolute;width:22px;height:22px;background:#ff6b6b;border-radius:50%;right:22%;bottom:22%;display:flex;align-items:center;justify-content:center;font-size:.65rem;box-shadow:0 0 12px rgba(255,107,107,.5)}
+.rfind{display:none;padding:3rem;text-align:center}
+.rspin{width:48px;height:48px;border:3px solid #1a2a2a;border-top-color:#00d9a6;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 1rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.rfnd{display:none;padding:1.4rem}
+.dcrd{background:#0d1414;border:1px solid #1a2a2a;border-radius:12px;padding:1rem;display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+.dav{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#00d9a6,#00b4d8);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+.dname{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;color:#fff}
+.drat{font-size:.8rem;color:#fbbf24}.dpl{font-size:.75rem;color:#556;font-family:monospace}
+.etab{background:#0d1414;border:1px solid rgba(0,217,166,.2);border-radius:10px;padding:.9rem;display:flex;align-items:center;justify-content:space-between}
+.etal{font-size:.78rem;color:#556}.etav{font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;color:#00d9a6}
+.cnb{width:100%;margin-top:.8rem;background:transparent;border:1px solid #1a2a2a;color:#556;padding:.7rem;border-radius:10px;font-size:.82rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.cnb:hover{border-color:#ff6b6b;color:#ff6b6b}
+/* ========== SALON DEMO ========== */
+.sl_app{font-family:'DM Sans',sans-serif;background:#0d0a12;min-height:100%}
+.sl_nav{background:#120f1a;padding:.9rem 1.4rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1e1830}
+.sl_logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,#c084fc,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sl_hero{background:linear-gradient(135deg,#0d0a12,#1a0d2e);padding:2rem 1.4rem;position:relative;overflow:hidden}
+.sl_hero h2{font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;color:#fff;margin-bottom:.4rem}
+.sl_hero p{color:#c084fc;font-size:.85rem}
+.sl_svc_grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem;padding:1.4rem}
+.sl_svc{background:#120f1a;border:1px solid #1e1830;border-radius:12px;padding:1.2rem;text-align:center;cursor:pointer;transition:all .25s;position:relative}
+.sl_svc:hover,.sl_svc.sel{border-color:#c084fc;background:rgba(192,132,252,.08)}
+.sl_svc .icon{font-size:2rem;display:block;margin-bottom:.6rem}
+.sl_svc .sn{font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;color:#e8e8f0}
+.sl_svc .sp{font-size:.82rem;color:#c084fc;margin-top:.25rem;font-weight:600}
+.sl_svc .st{font-size:.72rem;color:#666;margin-top:.1rem}
+.sl_svc .sel_badge{position:absolute;top:.5rem;right:.5rem;width:18px;height:18px;border-radius:50%;background:#c084fc;display:none;align-items:center;justify-content:center;font-size:.65rem;color:#fff}
+.sl_svc.sel .sel_badge{display:flex}
+.sl_form{padding:1.4rem;background:#0d0a12}
+.sl_label{font-size:.75rem;font-weight:600;color:#c084fc;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem}
+.sl_input{width:100%;background:#120f1a;border:1px solid #1e1830;border-radius:10px;padding:.75rem 1rem;color:#e8e8f0;font-size:.85rem;font-family:'DM Sans',sans-serif;outline:none;margin-bottom:1rem;transition:border-color .2s}
+.sl_input:focus{border-color:#c084fc}
+.sl_slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:.5rem;margin-bottom:1.2rem}
+.sl_slot{background:#120f1a;border:1px solid #1e1830;border-radius:8px;padding:.5rem;text-align:center;font-size:.78rem;color:#888;cursor:pointer;transition:all .2s}
+.sl_slot:hover,.sl_slot.sel{background:rgba(192,132,252,.12);border-color:#c084fc;color:#c084fc}
+.sl_slot.busy{opacity:.4;cursor:not-allowed;background:#1a1522}
+.sl_bkbtn{width:100%;background:linear-gradient(135deg,#c084fc,#f472b6);border:none;color:#fff;padding:.9rem;border-radius:12px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .25s}
+.sl_bkbtn:hover{transform:scale(1.02);box-shadow:0 4px 20px rgba(192,132,252,.4)}
+.sl_succ{display:none;text-align:center;padding:3rem 1rem}
+/* ========== QR DEMO ========== */
+.qr_app{font-family:'DM Sans',sans-serif;background:#0a0e14;min-height:100%}
+.qr_nav{background:#0d1118;padding:.9rem 1.4rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1a2030}
+.qr_logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,#38bdf8,#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.qr_body{padding:1.4rem}
+.qr_tabs{display:flex;gap:.5rem;margin-bottom:1.4rem;background:#0d1118;border-radius:10px;padding:.3rem}
+.qr_tab{flex:1;padding:.5rem;border-radius:8px;border:none;background:transparent;color:#666;font-size:.82rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.qr_tab.active{background:linear-gradient(135deg,#38bdf8,#818cf8);color:#fff}
+.qr_input{width:100%;background:#0d1118;border:1px solid #1a2030;border-radius:10px;padding:.75rem 1rem;color:#e8e8f0;font-size:.85rem;font-family:'DM Sans',sans-serif;outline:none;margin-bottom:1rem;transition:border-color .2s}
+.qr_input:focus{border-color:#38bdf8}
+.qr_opts{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem}
+.qr_opt label{font-size:.75rem;color:#556;font-weight:600;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:.4rem}
+.qr_opt select,.qr_opt input[type=color]{width:100%;background:#0d1118;border:1px solid #1a2030;border-radius:8px;padding:.5rem .75rem;color:#e8e8f0;font-size:.82rem;font-family:'DM Sans',sans-serif;outline:none}
+.qr_genbtn{width:100%;background:linear-gradient(135deg,#38bdf8,#818cf8);border:none;color:#fff;padding:.9rem;border-radius:12px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .25s;margin-bottom:1.4rem}
+.qr_genbtn:hover{transform:scale(1.02);box-shadow:0 4px 20px rgba(56,189,248,.4)}
+.qr_result{background:#0d1118;border:1px solid #1a2030;border-radius:16px;padding:1.4rem;text-align:center}
+.qr_canvas{background:#fff;border-radius:12px;padding:1rem;display:inline-block;margin-bottom:1rem}
+.qr_dlbtn{background:transparent;border:1px solid rgba(56,189,248,.3);color:#38bdf8;padding:.5rem 1.2rem;border-radius:8px;font-size:.82rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.qr_dlbtn:hover{background:rgba(56,189,248,.1)}
+/* ========== ECOMMERCE DEMO ========== */
+.ec_app{font-family:'DM Sans',sans-serif;background:#0a0a10;min-height:100%}
+.ec_nav{background:#111118;padding:.9rem 1.4rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1e1e2e}
+.ec_logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,#f59e0b,#ef4444);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ec_nav_btns{display:flex;align-items:center;gap:.8rem}
+.ec_cartbtn{background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;border:none;padding:.5rem 1rem;border-radius:8px;font-size:.78rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:transform .2s}
+.ec_cartbtn:hover{transform:scale(1.05)}
+.ec_hero{background:linear-gradient(135deg,#0f0c00,#1f1200,#120a00);padding:2rem 1.4rem;display:flex;align-items:center;justify-content:space-between;overflow:hidden;position:relative}
+.ec_hero_txt h2{font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;color:#fff;margin-bottom:.4rem}
+.ec_hero_txt p{color:#f59e0b;font-size:.85rem;margin-bottom:1rem}
+.ec_shopbtn{background:linear-gradient(135deg,#f59e0b,#ef4444);border:none;color:#fff;padding:.6rem 1.3rem;border-radius:8px;font-size:.85rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif}
+.ec_hero_emoji{font-size:5rem;opacity:.6;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.ec_cats{display:flex;gap:.7rem;padding:1.2rem 1.4rem .5rem;overflow-x:auto;scrollbar-width:none}
+.ec_cats::-webkit-scrollbar{display:none}
+.ec_catb{flex-shrink:0;padding:.4rem 1rem;border-radius:100px;border:1px solid #252535;background:transparent;color:#888;font-size:.78rem;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;white-space:nowrap}
+.ec_catb.active,.ec_catb:hover{background:linear-gradient(135deg,#f59e0b,#ef4444);border-color:transparent;color:#fff}
+.ec_pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem;padding:1rem 1.4rem 1.4rem}
+.ec_pcard{background:#111118;border:1px solid #1e1e2e;border-radius:12px;overflow:hidden;cursor:pointer;transition:all .25s;position:relative}
+.ec_pcard:hover{transform:translateY(-3px);border-color:rgba(245,158,11,.3)}
+.ec_pimg{height:130px;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative}
+.ec_badge2{position:absolute;top:.5rem;left:.5rem;background:#ef4444;color:#fff;font-size:.65rem;font-weight:700;padding:.15rem .5rem;border-radius:4px}
+.ec_pinfo{padding:.9rem}
+.ec_pname{font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;color:#e8e8f0;margin-bottom:.25rem}
+.ec_prating{font-size:.72rem;color:#f59e0b;margin-bottom:.4rem}
+.ec_pprices{display:flex;align-items:center;gap:.5rem;margin-bottom:.7rem}
+.ec_pp{font-size:.9rem;color:#f59e0b;font-weight:700}
+.ec_pop{font-size:.75rem;color:#555;text-decoration:line-through}
+.ec_addbtn{width:100%;background:linear-gradient(135deg,#f59e0b,#ef4444);border:none;color:#fff;padding:.45rem;border-radius:8px;font-size:.78rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.ec_addbtn:hover{transform:scale(1.03)}
+.ec_csidebar{position:absolute;right:0;top:0;bottom:0;width:280px;background:#111118;border-left:1px solid #1e1e2e;padding:1.2rem;transform:translateX(100%);transition:transform .35s;z-index:10;overflow-y:auto}
+.ec_csidebar.open{transform:translateX(0)}
+.ec_citem{display:flex;align-items:center;gap:.7rem;padding:.7rem 0;border-bottom:1px solid #1e1e2e}
+.ec_cico{font-size:1.6rem;flex-shrink:0}
+.ec_cname{font-size:.82rem;color:#e8e8f0}
+.ec_cprice{font-size:.82rem;color:#f59e0b;font-weight:600}
+.ec_qc{display:flex;align-items:center;gap:.4rem;margin-top:.3rem}
+.ec_qb{width:20px;height:20px;border-radius:50%;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);color:#f59e0b;font-size:.8rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.ec_qn{font-size:.82rem;color:#fff;min-width:14px;text-align:center}
+.ec_ctot{margin-top:1rem;padding-top:1rem;border-top:1px solid #1e1e2e;display:flex;justify-content:space-between;font-weight:600;font-size:.9rem;color:#fff}
+.ec_ckbtn{width:100%;margin-top:1rem;background:linear-gradient(135deg,#f59e0b,#ef4444);border:none;color:#fff;padding:.8rem;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.ec_succ{display:none;text-align:center;padding:3rem 1rem}
+.ec_filter{display:flex;gap:.7rem;padding:.5rem 1.4rem;flex-wrap:wrap}
+.ec_fb{padding:.35rem .9rem;border-radius:100px;border:1px solid #252535;background:transparent;color:#888;font-size:.76rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.ec_fb.on{background:#252535;color:#e8e8f0}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:rgba(124,92,252,.4);border-radius:3px}
+@media(max-width:768px){nav{padding:1rem 1.5rem}.nlinks{display:none;position:fixed;top:64px;left:0;right:0;background:rgba(10,10,15,.97);padding:1.5rem 2rem;flex-direction:column;gap:1.3rem;border-bottom:1px solid var(--border);z-index:199}.nlinks.open{display:flex}.hbg{display:flex}section{padding:4rem 1.5rem}.ag,.cgrid{grid-template-columns:1fr}.ec{flex-direction:column}.hero{padding:6rem 1.5rem 3rem}}
+@media(max-width:480px){.pgrid,.rg,.ec_pgrid{grid-template-columns:1fr 1fr}.sgrid{grid-template-columns:1fr 1fr}}
+</style>
 </head>
 <body>
-
-<!-- NAV -->
 <nav>
-  <div class="nav-logo">US.</div>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="#contact">Contact</a></li>
+  <a href="#home" class="nlogo">US.</a>
+  <ul class="nlinks" id="NL">
+    <li><a href="#about" onclick="CM()">About</a></li>
+    <li><a href="#skills" onclick="CM()">Skills</a></li>
+    <li><a href="#projects" onclick="CM()">Projects</a></li>
+    <li><a href="#experience" onclick="CM()">Experience</a></li>
+    <li><a href="#education" onclick="CM()">Education</a></li>
+    <li><a href="#contact" onclick="CM()">Contact</a></li>
   </ul>
+  <button class="hbg" onclick="TM()" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- HERO -->
 <div class="hero" id="home">
-  <div class="hero-bg-glow"></div>
-  <div class="hero-bg-glow2"></div>
+  <div class="g1"></div><div class="g2"></div>
   <div>
-    <div class="hero-badge">Available for Opportunities</div>
-    <h1 class="hero-name">Umang<br/><span>Sutarsandhiya</span></h1>
-    <p class="hero-title">Frontend Developer &amp; Computer Engineering Student</p>
-    <div class="hero-cta">
-      <a href="#projects" class="btn btn-primary">
-        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+    <div class="badge">Available for Opportunities</div>
+    <h1 class="hname">Umang<br/><span>Sutarsandhiya</span></h1>
+    <p class="hsub">Frontend Developer &amp; Computer Engineering Student</p>
+    <div class="hcta">
+      <a href="#projects" class="btn btnp">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
         View Projects
       </a>
-      <a href="#contact" class="btn btn-outline">
-        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      <a href="#contact" class="btn btno">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
         Contact Me
       </a>
     </div>
   </div>
 </div>
+<hr class="dv"/>
 
-<hr class="divider"/>
-
-<!-- ABOUT -->
 <section id="about">
-  <p class="section-label reveal">Who I Am</p>
-  <h2 class="section-title reveal">Passionate About <span>Building Things</span></h2>
-  <div class="about-grid">
-    <div class="about-text reveal">
-      <p>I'm a <strong>final-year Computer Engineering student</strong> at Gujarat Technological University, with a deep passion for web development and user-focused digital experiences.</p>
-      <p>I specialize in <strong>HTML, CSS, JavaScript</strong>, and have working knowledge of <strong>.NET and SQL</strong>. I enjoy creating responsive, accessible websites that blend clean design with solid functionality.</p>
-      <p>Beyond coding, I've represented <strong>GTU at the National Softball level</strong> — which taught me teamwork, strategy, and relentless pursuit of improvement — values I bring to every project.</p>
-      <a href="mailto:umangsutariya5839@gmail.com" class="btn btn-outline" style="margin-top:0.5rem; display:inline-flex;">
-        Get In Touch →
-      </a>
+  <p class="slbl reveal">Who I Am</p>
+  <h2 class="stitle reveal">Passionate About <span>Building Things</span></h2>
+  <div class="ag">
+    <div class="atext reveal">
+      <p>I'm a <strong>final-year Computer Engineering student</strong> at Gujarat Technological University with a passion for web development and creating user-focused digital experiences.</p>
+      <p>I specialize in <strong>HTML, CSS, JavaScript</strong>, with working knowledge of <strong>.NET and SQL</strong>, building responsive accessible sites with clean design and solid functionality.</p>
+      <p>Beyond coding, I've represented <strong>GTU at National Softball level</strong> &mdash; teaching me teamwork, strategy, and relentless pursuit of improvement.</p>
+      <a href="#contact" class="btn btno" style="margin-top:.5rem;display:inline-flex">Get In Touch &rarr;</a>
     </div>
-    <div class="about-stats reveal">
-      <div class="stat-card">
-        <div class="stat-num">4+</div>
-        <div class="stat-label">Projects Built</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">7.73</div>
-        <div class="stat-label">CGPA Score</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">5+</div>
-        <div class="stat-label">Technologies</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">🏅</div>
-        <div class="stat-label">National Softball</div>
-      </div>
+    <div class="sgrid reveal">
+      <div class="sc"><div class="snum">5+</div><div class="slb">Projects Built</div></div>
+      <div class="sc"><div class="snum">7.73</div><div class="slb">CGPA Score</div></div>
+      <div class="sc"><div class="snum">6+</div><div class="slb">Technologies</div></div>
+      <div class="sc"><div class="snum">&#127885;</div><div class="slb">National Softball</div></div>
     </div>
   </div>
 </section>
+<hr class="dv"/>
 
-<hr class="divider"/>
-
-<!-- SKILLS -->
 <section id="skills">
-  <p class="section-label reveal">What I Know</p>
-  <h2 class="section-title reveal">Technical <span>Skills</span></h2>
-  <p class="section-desc reveal">A toolkit built through coursework, hands-on projects, and continuous self-learning.</p>
-  <div class="skills-grid">
-    <div class="skill-group reveal">
-      <div class="skill-group-title">🌐 Frontend</div>
-      <div class="skill-tags">
-        <span class="tag">HTML5</span>
-        <span class="tag">CSS3</span>
-        <span class="tag">JavaScript</span>
-        <span class="tag">Responsive Design</span>
-        <span class="tag">UI/UX Basics</span>
-      </div>
-    </div>
-    <div class="skill-group reveal">
-      <div class="skill-group-title">⚙️ Backend & Frameworks</div>
-      <div class="skill-tags">
-        <span class="tag">.NET (Learning)</span>
-        <span class="tag green">MySQL</span>
-        <span class="tag green">SQL</span>
-        <span class="tag green">Oracle DB</span>
-      </div>
-    </div>
-    <div class="skill-group reveal">
-      <div class="skill-group-title">🛠 Dev Tools</div>
-      <div class="skill-tags">
-        <span class="tag">VS Code</span>
-        <span class="tag">IntelliJ IDEA</span>
-        <span class="tag">Git</span>
-        <span class="tag red">Manual Testing</span>
-      </div>
-    </div>
-    <div class="skill-group reveal">
-      <div class="skill-group-title">☁️ Cloud & OS</div>
-      <div class="skill-tags">
-        <span class="tag green">AWS (Basic)</span>
-        <span class="tag green">Linux (Basic)</span>
-        <span class="tag">Excel</span>
-      </div>
-    </div>
+  <p class="slbl reveal">What I Know</p>
+  <h2 class="stitle reveal">Technical <span>Skills</span></h2>
+  <p class="sdesc reveal">A toolkit built through coursework, hands-on projects, and continuous self-learning.</p>
+  <div class="skgrid">
+    <div class="skg reveal"><div class="skgt">&#127760; Frontend</div><div class="tags"><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span><span class="tag">Responsive Design</span><span class="tag">UI/UX Basics</span></div></div>
+    <div class="skg reveal"><div class="skgt">&#9881; Backend</div><div class="tags"><span class="tag">.NET</span><span class="tag g">MySQL</span><span class="tag g">SQL</span><span class="tag g">Oracle DB</span></div></div>
+    <div class="skg reveal"><div class="skgt">&#128295; Dev Tools</div><div class="tags"><span class="tag">VS Code</span><span class="tag">IntelliJ IDEA</span><span class="tag">Git</span><span class="tag r">Manual Testing</span></div></div>
+    <div class="skg reveal"><div class="skgt">&#9729; Cloud &amp; OS</div><div class="tags"><span class="tag g">AWS (Basic)</span><span class="tag g">Linux</span><span class="tag">Excel</span></div></div>
   </div>
 </section>
+<hr class="dv"/>
 
-<hr class="divider"/>
-
-<!-- PROJECTS -->
 <section id="projects">
-  <p class="section-label reveal">What I've Built</p>
-  <h2 class="section-title reveal">Featured <span>Projects</span></h2>
-  <p class="section-desc reveal">Real-world applications showcasing my development skills and creativity.</p>
-  <div class="projects-grid">
+  <p class="slbl reveal">What I've Built</p>
+  <h2 class="stitle reveal">Featured <span>Projects</span></h2>
+  <p class="sdesc reveal">5 real-world applications with fully interactive live demos &mdash; click to explore each one!</p>
+  <div class="pgrid">
 
-    <!-- Food Order -->
-    <div class="project-card reveal">
-      <div class="project-banner food">
-        <span class="project-emoji">🍔</span>
-      </div>
-      <div class="project-body">
-        <div class="featured-badge">⭐ Featured Project</div>
-        <div class="project-meta">
-          <h3 class="project-name">FoodieExpress</h3>
-          <span class="project-type">Web App</span>
-        </div>
-        <p class="project-desc">
-          A full-featured online food ordering platform where users can browse restaurants, explore menus, add items to cart, and place orders with a seamless checkout experience. Includes real-time order tracking and delivery status.
-        </p>
-        <div class="project-tech">
-          <span class="tech-tag">HTML5</span>
-          <span class="tech-tag">CSS3</span>
-          <span class="tech-tag">JavaScript</span>
-          <span class="tech-tag">MySQL</span>
-        </div>
-        <div class="project-links">
-          <a href="https://umang-foodie-express.netlify.app" target="_blank" rel="noopener" class="project-link live">
-            <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-            Live Demo
-          </a>
-          <a href="https://github.com/umangsutariya/foodie-express" target="_blank" rel="noopener" class="project-link source">
-            <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-            GitHub
-          </a>
+    <div class="pc reveal">
+      <div class="pb" style="background:linear-gradient(135deg,#1a1040,#2d1b69,#1a0a2e)"><span class="pe">&#127828;</span></div>
+      <div class="pbd">
+        <div class="feat">&#11088; Featured</div>
+        <div class="pmeta"><h3 class="pname">FoodieExpress</h3><span class="ptype">Web App</span></div>
+        <p class="pdesc">Online food ordering platform &mdash; browse restaurants, add to cart, checkout with real-time order tracking.</p>
+        <div class="ptech"><span class="tt">HTML5</span><span class="tt">CSS3</span><span class="tt">JavaScript</span><span class="tt">MySQL</span></div>
+        <div class="plinks">
+          <button class="pl live" onclick="OM('food')"><svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>Live Demo</button>
+          <button class="pl src">&#128025; GitHub</button>
         </div>
       </div>
     </div>
 
-    <!-- Rapido-type Ride App -->
-    <div class="project-card reveal">
-      <div class="project-banner ride">
-        <span class="project-emoji">🏍️</span>
-      </div>
-      <div class="project-body">
-        <div class="featured-badge">⭐ Featured Project</div>
-        <div class="project-meta">
-          <h3 class="project-name">SwiftRide</h3>
-          <span class="project-type">Web App</span>
-        </div>
-        <p class="project-desc">
-          A bike-taxi and ride-hailing web platform inspired by Rapido. Users can book affordable rides, track drivers in real time, view fare estimates, and manage ride history. Built with a focus on speed and simplicity.
-        </p>
-        <div class="project-tech">
-          <span class="tech-tag">HTML5</span>
-          <span class="tech-tag">CSS3</span>
-          <span class="tech-tag">JavaScript</span>
-          <span class="tech-tag">MySQL</span>
-        </div>
-        <div class="project-links">
-          <a href="https://umang-swiftride.netlify.app" target="_blank" rel="noopener" class="project-link live">
-            <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-            Live Demo
-          </a>
-          <a href="https://github.com/umangsutariya/swiftride" target="_blank" rel="noopener" class="project-link source">
-            <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-            GitHub
-          </a>
+    <div class="pc reveal">
+      <div class="pb" style="background:linear-gradient(135deg,#0a1a1a,#0d3533,#0a1015)"><span class="pe">&#128757;</span></div>
+      <div class="pbd">
+        <div class="feat">&#11088; Featured</div>
+        <div class="pmeta"><h3 class="pname">SwiftRide</h3><span class="ptype">Web App</span></div>
+        <p class="pdesc">Rapido-inspired bike-taxi platform &mdash; book rides, real-time driver tracking, fare estimates and ride history.</p>
+        <div class="ptech"><span class="tt">HTML5</span><span class="tt">CSS3</span><span class="tt">JavaScript</span><span class="tt">MySQL</span></div>
+        <div class="plinks">
+          <button class="pl live" onclick="OM('ride')"><svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>Live Demo</button>
+          <button class="pl src">&#128025; GitHub</button>
         </div>
       </div>
     </div>
 
-    <!-- Salon Management -->
-    <div class="project-card reveal">
-      <div class="project-banner salon">
-        <span class="project-emoji">✂️</span>
-      </div>
-      <div class="project-body">
-        <div class="project-meta">
-          <h3 class="project-name">Salon Management System</h3>
-          <span class="project-type">Web App</span>
-        </div>
-        <p class="project-desc">
-          A responsive web-based salon management platform to streamline booking, customer tracking, and service scheduling. Supports real-time appointment booking and service selection with an automated time-slot engine.
-        </p>
-        <div class="project-tech">
-          <span class="tech-tag">HTML</span>
-          <span class="tech-tag">CSS</span>
-          <span class="tech-tag">JavaScript</span>
-        </div>
-        <div class="project-links">
-          <a href="https://github.com/umangsutariya/salon-management" target="_blank" rel="noopener" class="project-link live">
-            <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-            View on GitHub
-          </a>
+    <div class="pc reveal">
+      <div class="pb" style="background:linear-gradient(135deg,#1a0a1a,#3d1060,#1a0a2e)"><span class="pe">&#9986;</span></div>
+      <div class="pbd">
+        <div class="pmeta"><h3 class="pname">GlowSalon</h3><span class="ptype">Web App</span></div>
+        <p class="pdesc">Salon management system &mdash; book appointments, choose services, pick time slots, manage customer records.</p>
+        <div class="ptech"><span class="tt">HTML</span><span class="tt">CSS</span><span class="tt">JavaScript</span></div>
+        <div class="plinks">
+          <button class="pl live" onclick="OM('salon')"><svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>Live Demo</button>
+          <button class="pl src">&#128025; GitHub</button>
         </div>
       </div>
     </div>
 
-    <!-- QR Generator -->
-    <div class="project-card reveal">
-      <div class="project-banner qr">
-        <span class="project-emoji">📲</span>
+    <div class="pc reveal">
+      <div class="pb" style="background:linear-gradient(135deg,#0a1020,#0d2a5e,#0a0a1a)"><span class="pe">&#128242;</span></div>
+      <div class="pbd">
+        <div class="pmeta"><h3 class="pname">SmartQR</h3><span class="ptype">Tool</span></div>
+        <p class="pdesc">Dynamic QR code generator &mdash; URLs, text, contact info. Customize colors, size, and download instantly.</p>
+        <div class="ptech"><span class="tt">HTML</span><span class="tt">CSS</span><span class="tt">JavaScript</span></div>
+        <div class="plinks">
+          <button class="pl live" onclick="OM('qr')"><svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>Live Demo</button>
+          <button class="pl src">&#128025; GitHub</button>
+        </div>
       </div>
-      <div class="project-body">
-        <div class="project-meta">
-          <h3 class="project-name">Smart QR Generator</h3>
-          <span class="project-type">Tool</span>
-        </div>
-        <p class="project-desc">
-          A dynamic QR code generator enabling real-time conversion of URLs, plain text, and contact info into scannable QR codes. Features style customization, mobile responsiveness, and instant image export.
-        </p>
-        <div class="project-tech">
-          <span class="tech-tag">HTML</span>
-          <span class="tech-tag">CSS</span>
-          <span class="tech-tag">JavaScript</span>
-        </div>
-        <div class="project-links">
-          <a href="https://github.com/umangsutariya/smart-qr-generator" target="_blank" rel="noopener" class="project-link live">
-            <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-            View on GitHub
-          </a>
+    </div>
+
+    <div class="pc reveal" style="border-color:rgba(245,158,11,.2)">
+      <div class="pb" style="background:linear-gradient(135deg,#1a0f00,#2d1800,#1a0a00)"><span class="pe">&#128722;</span></div>
+      <div class="pbd">
+        <div class="feat" style="color:#f59e0b;background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.25)">&#128722; E-Commerce</div>
+        <div class="pmeta"><h3 class="pname">ShopEase</h3><span class="ptype" style="background:rgba(245,158,11,.15);color:#fbbf24;border-color:rgba(245,158,11,.25)">E-Commerce</span></div>
+        <p class="pdesc">Full-featured e-commerce store &mdash; product catalog, filters, cart, wishlist, checkout &amp; order confirmation.</p>
+        <div class="ptech"><span class="tt">HTML5</span><span class="tt">CSS3</span><span class="tt">JavaScript</span><span class="tt">E-Commerce</span></div>
+        <div class="plinks">
+          <button class="pl live" onclick="OM('ecom')" style="background:linear-gradient(135deg,#f59e0b,#ef4444);box-shadow:0 2px 12px rgba(245,158,11,.3)"><svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>Live Demo</button>
+          <button class="pl src">&#128025; GitHub</button>
         </div>
       </div>
     </div>
 
   </div>
 </section>
+<hr class="dv"/>
 
-<hr class="divider"/>
-
-<!-- EXPERIENCE -->
 <section id="experience">
-  <p class="section-label reveal">Work History</p>
-  <h2 class="section-title reveal">Professional <span>Experience</span></h2>
-  <div class="exp-list">
-    <div class="exp-card reveal">
-      <div>
-        <div class="exp-company">IBM – SkillsBuild</div>
-        <div class="exp-role">Data Analysis Intern</div>
-        <p class="exp-desc">Worked with Excel and SQL to analyze datasets, generate insights, and build data reports. Gained hands-on experience with real-world data pipelines and IBM's cloud learning platform.</p>
-      </div>
-      <div class="exp-period">Jul 2025</div>
+  <p class="slbl reveal">Work History</p>
+  <h2 class="stitle reveal">Professional <span>Experience</span></h2>
+  <div class="ec reveal">
+    <div>
+      <div class="eco">IBM &ndash; SkillsBuild</div>
+      <div class="er">Data Analysis Intern</div>
+      <p class="ed">Worked with Excel and SQL to analyze datasets, generate insights, and build data reports. Gained hands-on experience with real-world data pipelines and IBM's cloud learning platform.</p>
     </div>
+    <div class="ep">Jul 2025</div>
   </div>
 </section>
+<hr class="dv"/>
 
-<hr class="divider"/>
-
-<!-- EDUCATION -->
 <section id="education">
-  <p class="section-label reveal">Academic Background</p>
-  <h2 class="section-title reveal">My <span>Education</span></h2>
-  <div class="edu-timeline">
-
-    <div class="edu-item reveal">
-      <div>
-        <div class="edu-dot">🎓</div>
-        <div class="edu-line"></div>
-      </div>
-      <div>
-        <div class="edu-year">2022 – 2026</div>
-        <div class="edu-degree">B.E. Computer Engineering</div>
-        <div class="edu-school">Gujarat Technological University</div>
-        <span class="edu-score">CGPA: 7.73 / 10.00</span>
-      </div>
-    </div>
-
-    <div class="edu-item reveal">
-      <div>
-        <div class="edu-dot">📚</div>
-        <div class="edu-line"></div>
-      </div>
-      <div>
-        <div class="edu-year">2021 – 2022</div>
-        <div class="edu-degree">Class XII – Science</div>
-        <div class="edu-school">Pramukh Swami Vidyalaya, Salangpur</div>
-        <span class="edu-score">Score: 55.50% · Grade C1</span>
-      </div>
-    </div>
-
-    <div class="edu-item reveal">
-      <div>
-        <div class="edu-dot">🏫</div>
-        <div class="edu-line"></div>
-      </div>
-      <div>
-        <div class="edu-year">2019 – 2020</div>
-        <div class="edu-degree">Class X</div>
-        <div class="edu-school">Pramukh Swami Vidyalaya, Salangpur</div>
-        <span class="edu-score">Score: 65.83% · Grade B2</span>
-      </div>
-    </div>
-
+  <p class="slbl reveal">Academic Background</p>
+  <h2 class="stitle reveal">My <span>Education</span></h2>
+  <div>
+    <div class="ei reveal"><div><div class="edot">&#127891;</div><div class="eline"></div></div><div><div class="eyear">2022 &ndash; 2026</div><div class="edeg">B.E. Computer Engineering</div><div class="esch">Gujarat Technological University</div><span class="escore">CGPA: 7.73 / 10.00</span></div></div>
+    <div class="ei reveal"><div><div class="edot">&#128218;</div><div class="eline"></div></div><div><div class="eyear">2021 &ndash; 2022</div><div class="edeg">Class XII &ndash; Science</div><div class="esch">Pramukh Swami Vidyalaya, Salangpur</div><span class="escore">55.50% &middot; Grade C1</span></div></div>
+    <div class="ei reveal"><div><div class="edot">&#127979;</div><div class="eline"></div></div><div><div class="eyear">2019 &ndash; 2020</div><div class="edeg">Class X</div><div class="esch">Pramukh Swami Vidyalaya, Salangpur</div><span class="escore">65.83% &middot; Grade B2</span></div></div>
   </div>
 </section>
+<hr class="dv"/>
 
-<hr class="divider"/>
-
-<!-- CONTACT -->
 <section id="contact">
-  <p class="section-label reveal">Reach Out</p>
-  <h2 class="section-title reveal">Let's <span>Connect</span></h2>
-  <p class="section-desc reveal">Open to internships, freelance work, and full-time opportunities. Don't hesitate to reach out!</p>
-  <div class="contact-grid">
-    <a href="mailto:umangsutariya5839@gmail.com" class="contact-card reveal">
-      <div class="contact-icon red">📧</div>
-      <div>
-        <div class="contact-label">Email</div>
-        <div class="contact-value">umangsutariya5839@gmail.com</div>
-      </div>
-    </a>
-    <a href="tel:+919429684634" class="contact-card reveal">
-      <div class="contact-icon green">📱</div>
-      <div>
-        <div class="contact-label">Phone</div>
-        <div class="contact-value">+91 94296 84634</div>
-      </div>
-    </a>
-    <a href="https://linkedin.com/in/umang-sutarsandhiya" target="_blank" rel="noopener" class="contact-card reveal">
-      <div class="contact-icon blue">💼</div>
-      <div>
-        <div class="contact-label">LinkedIn</div>
-        <div class="contact-value">umang-sutarsandhiya</div>
-      </div>
-    </a>
-    <a href="https://github.com/umangsutariya" target="_blank" rel="noopener" class="contact-card reveal">
-      <div class="contact-icon purple">🐙</div>
-      <div>
-        <div class="contact-label">GitHub</div>
-        <div class="contact-value">umangsutariya</div>
-      </div>
-    </a>
+  <p class="slbl reveal">Reach Out</p>
+  <h2 class="stitle reveal">Let's <span>Connect</span></h2>
+  <p class="sdesc reveal">Open to internships, freelance work, and full-time opportunities!</p>
+  <div class="cgrid">
+    <a href="mailto:umangsutariya5839@gmail.com" class="cc reveal"><div class="ci rd">&#128231;</div><div><div class="clbl">Email</div><div class="cval">umangsutariya5839@gmail.com</div></div></a>
+    <a href="tel:+919429684634" class="cc reveal"><div class="ci gr">&#128241;</div><div><div class="clbl">Phone</div><div class="cval">+91 94296 84634</div></div></a>
+    <a href="#contact" class="cc reveal"><div class="ci bl">&#128188;</div><div><div class="clbl">LinkedIn</div><div class="cval">umang-sutarsandhiya</div></div></a>
+    <a href="#contact" class="cc reveal"><div class="ci pu">&#128025;</div><div><div class="clbl">GitHub</div><div class="cval">umangsutariya</div></div></a>
   </div>
 </section>
 
-<footer>
-  <p>Crafted with ❤️ by <span>Umang Sutarsandhiya</span> · Computer Engineering Student · Gujarat, India</p>
-</footer>
+<footer><p>Crafted with &#10084; by <span>Umang Sutarsandhiya</span> &middot; Computer Engineering Student &middot; Gujarat, India</p></footer>
+
+<!-- ======== FOOD MODAL ======== -->
+<div class="mo" id="Mfood">
+<div class="mdl"><div class="mhd"><div class="mtitle">&#127828; FoodieExpress <span style="font-size:.72rem;color:#666;font-weight:400;margin-left:.3rem">Interactive Demo</span></div><button class="mclose" onclick="CM2('food')">&#10005;</button></div>
+<div class="mbody"><div class="fd">
+  <div class="fdnav"><div class="fdlogo">FoodieExpress</div><div style="font-size:.78rem;color:#888">&#128205; Ahmedabad, GJ</div><button class="fdcbtn" onclick="FTC()">&#128722; Cart <span id="fcnt">0</span></button></div>
+  <div style="position:relative;overflow:hidden">
+    <div class="csd" id="FCS">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#fff;margin-bottom:1rem">&#128722; Your Cart</div>
+      <div id="FCI"></div><div id="FCE" style="color:#555;font-size:.85rem;text-align:center;padding:2rem 0">Add items to get started!</div>
+      <div id="FCF" style="display:none"><div class="ctot"><span>Total</span><span id="FCT" style="color:#ff9a6c">&#8377;0</span></div><button class="ckb" onclick="FPO()">Place Order &rarr;</button></div>
+    </div>
+    <div class="osucc" id="FOS"><div style="font-size:3.5rem;animation:pop .5s ease">&#9989;</div><h3 style="font-family:'Syne',sans-serif;font-weight:800;color:#00d9a6;font-size:1.2rem;margin:.6rem 0 .3rem">Order Placed!</h3><p style="color:#888;font-size:.85rem">Preparing your food...<br/><strong style="color:#ff9a6c">30-40 min delivery</strong></p><button class="ckb" onclick="FReset()" style="max-width:160px;margin:1.2rem auto 0;display:block">Order More</button></div>
+    <div id="FMain">
+      <div class="fdhero"><h2>Hungry? We got you. &#127869;</h2><p>Order from 500+ restaurants near you</p>
+        <div class="fdsearch"><input type="text" placeholder="Search restaurants..." id="FSI" oninput="FSR(this.value)"/><button>&#128269;</button></div>
+      </div>
+      <div class="fdcats">
+        <button class="catb active" onclick="FFC('all',this)">&#127869; All</button>
+        <button class="catb" onclick="FFC('pizza',this)">&#127829; Pizza</button>
+        <button class="catb" onclick="FFC('burger',this)">&#127828; Burgers</button>
+        <button class="catb" onclick="FFC('biryani',this)">&#127834; Biryani</button>
+        <button class="catb" onclick="FFC('chinese',this)">&#128801; Chinese</button>
+        <button class="catb" onclick="FFC('dessert',this)">&#127856; Desserts</button>
+      </div>
+      <div class="fdst">Popular Restaurants</div>
+      <div class="rg" id="FRG"></div>
+    </div>
+  </div>
+</div></div></div>
+</div>
+
+<!-- ======== RIDE MODAL ======== -->
+<div class="mo" id="Mride">
+<div class="mdl"><div class="mhd"><div class="mtitle">&#128757; SwiftRide <span style="font-size:.72rem;color:#666;font-weight:400;margin-left:.3rem">Interactive Demo</span></div><button class="mclose" onclick="CM2('ride')">&#10005;</button></div>
+<div class="mbody"><div class="rd">
+  <div class="rdnav"><div class="rdlogo">&#9889; SwiftRide</div><div style="font-size:.78rem;color:#336">Safe &middot; Fast &middot; Affordable</div></div>
+  <div id="RBK">
+    <div class="rdhero"><h2>Where to? &#128757;</h2><p>Book a ride in under 60 seconds</p>
+      <div class="rinpg">
+        <div class="rinp"><div class="rdot gr"></div><input type="text" value="Navrangpura, Ahmedabad" id="RFR"/></div>
+        <div class="rinp"><div class="rdot re"></div><input type="text" placeholder="Where do you want to go?" id="RTO" oninput="RUF()"/></div>
+      </div>
+    </div>
+    <div style="padding:.8rem 1.4rem .3rem;font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;color:#e8e8f0">Choose Ride Type</div>
+    <div class="rtypes">
+      <div class="rtype sel" id="RT-bike" onclick="RST('bike')"><span class="ric">&#128757;</span><div class="rtn">Bike</div><div class="rtp" id="RP-bike">&#8377;37</div><div class="rtt">3 min</div></div>
+      <div class="rtype" id="RT-auto" onclick="RST('auto')"><span class="ric">&#128762;</span><div class="rtn">Auto</div><div class="rtp" id="RP-auto">&#8377;62</div><div class="rtt">5 min</div></div>
+      <div class="rtype" id="RT-cab" onclick="RST('cab')"><span class="ric">&#128663;</span><div class="rtn">Cab</div><div class="rtp" id="RP-cab">&#8377;97</div><div class="rtt">8 min</div></div>
+    </div>
+    <div class="rmap"><div class="rmaplbl">&#128506; Live Map Preview</div><div class="mrd" style="width:70%;height:6px;left:15%;top:50%"></div><div class="mrd" style="width:6px;height:60%;left:50%;top:20%"></div><div class="ddot">&#128757;</div><div class="ydot2">&#128205;</div></div>
+    <div class="rbs"><div class="fbox">
+      <div class="fr"><span class="fl">Base Fare</span><span class="fv" id="RFB">&#8377;25</span></div>
+      <div class="fr"><span class="fl">Distance</span><span class="fv" id="RFD">&#8377;10</span></div>
+      <div class="fr"><span class="fl">Platform Fee</span><span class="fv">&#8377;2</span></div>
+      <div class="fr"><span class="fl" style="color:#fff;font-weight:600">Total</span><span class="fv" id="RFT" style="color:#00d9a6;font-size:1rem;font-weight:700">&#8377;37</span></div>
+    </div><button class="bkb" onclick="RBK()">Book Now &rarr;</button></div>
+  </div>
+  <div class="rfind" id="RFN"><div class="rspin"></div><div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:#fff;margin-bottom:.4rem">Finding your driver...</div><div style="font-size:.82rem;color:#556">Connecting to nearby riders</div></div>
+  <div class="rfnd" id="RFD2">
+    <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:#00d9a6;margin-bottom:1rem">&#9989; Driver Found!</div>
+    <div class="dcrd"><div class="dav">&#128104;</div><div><div class="dname">Ramesh K.</div><div class="drat">&#11088; 4.8 &middot; 1,240 trips</div><div class="dpl">GJ 01 AB 2345 &middot; Honda Activa</div></div></div>
+    <div class="etab"><div><div class="etal">Arriving in</div><div class="etav" id="ETA">3:00</div></div><div style="text-align:right"><div class="etal">Your Fare</div><div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:#fff" id="BF">&#8377;37</div></div></div>
+    <div style="margin-top:1rem;display:flex;gap:.7rem">
+      <button style="flex:1;background:rgba(0,217,166,.12);border:1px solid rgba(0,217,166,.25);color:#00d9a6;padding:.7rem;border-radius:10px;font-size:.82rem;cursor:pointer;font-family:'DM Sans',sans-serif">&#128222; Call</button>
+      <button style="flex:1;background:rgba(0,180,216,.12);border:1px solid rgba(0,180,216,.25);color:#00b4d8;padding:.7rem;border-radius:10px;font-size:.82rem;cursor:pointer;font-family:'DM Sans',sans-serif">&#128172; Chat</button>
+    </div>
+    <button class="cnb" onclick="RCN()">Cancel Ride</button>
+  </div>
+</div></div></div>
+</div>
+
+<!-- ======== SALON MODAL ======== -->
+<div class="mo" id="Msalon">
+<div class="mdl"><div class="mhd"><div class="mtitle">&#9986; GlowSalon <span style="font-size:.72rem;color:#666;font-weight:400;margin-left:.3rem">Interactive Demo</span></div><button class="mclose" onclick="CM2('salon')">&#10005;</button></div>
+<div class="mbody"><div class="sl_app">
+  <div class="sl_nav"><div class="sl_logo">&#10024; GlowSalon</div><div style="font-size:.78rem;color:#6b4fa0">Premium Beauty Services</div></div>
+  <div class="sl_hero"><h2>Book Your Session &#10024;</h2><p>Luxury salon experience at your fingertips</p></div>
+  <div id="SMain">
+    <div style="padding:1rem 1.4rem .5rem;font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;color:#e8e8f0">Choose Service</div>
+    <div class="sl_svc_grid" id="SSVC"></div>
+    <div class="sl_form" id="SForm" style="display:none">
+      <div class="sl_label">Your Name</div>
+      <input class="sl_input" type="text" placeholder="Enter your name" id="SName"/>
+      <div class="sl_label">Phone Number</div>
+      <input class="sl_input" type="tel" placeholder="+91 98765 43210" id="SPhone"/>
+      <div class="sl_label">Pick a Date</div>
+      <input class="sl_input" type="date" id="SDate"/>
+      <div class="sl_label">Available Time Slots</div>
+      <div class="sl_slots" id="SSlots"></div>
+      <div id="SSummary" style="background:#120f1a;border:1px solid #1e1830;border-radius:10px;padding:1rem;margin-bottom:1rem;display:none">
+        <div style="font-size:.78rem;color:#c084fc;font-weight:600;margin-bottom:.6rem">BOOKING SUMMARY</div>
+        <div id="SSumContent" style="font-size:.85rem;color:#e8e8f0;line-height:1.8"></div>
+      </div>
+      <button class="sl_bkbtn" onclick="SBK()">Confirm Booking &rarr;</button>
+    </div>
+  </div>
+  <div class="sl_succ" id="SSucc">
+    <div style="font-size:3.5rem;animation:pop .5s ease">&#127881;</div>
+    <h3 style="font-family:'Syne',sans-serif;font-weight:800;color:#c084fc;font-size:1.2rem;margin:.6rem 0 .3rem">Booking Confirmed!</h3>
+    <p style="color:#888;font-size:.85rem" id="SSuccMsg">Your appointment is all set!</p>
+    <button onclick="SReset()" style="margin-top:1.2rem;background:linear-gradient(135deg,#c084fc,#f472b6);border:none;color:#fff;padding:.6rem 1.4rem;border-radius:8px;font-size:.85rem;cursor:pointer;font-family:'DM Sans',sans-serif">Book Another</button>
+  </div>
+</div></div></div>
+</div>
+
+<!-- ======== QR MODAL ======== -->
+<div class="mo" id="Mqr">
+<div class="mdl"><div class="mhd"><div class="mtitle">&#128242; SmartQR Generator <span style="font-size:.72rem;color:#666;font-weight:400;margin-left:.3rem">Interactive Demo</span></div><button class="mclose" onclick="CM2('qr')">&#10005;</button></div>
+<div class="mbody"><div class="qr_app">
+  <div class="qr_nav"><div class="qr_logo">&#9889; SmartQR</div><div style="font-size:.78rem;color:#446">Generate &middot; Customize &middot; Download</div></div>
+  <div class="qr_body">
+    <div class="qr_tabs">
+      <button class="qr_tab active" onclick="QST('url',this)">&#128279; URL</button>
+      <button class="qr_tab" onclick="QST('text',this)">&#128221; Text</button>
+      <button class="qr_tab" onclick="QST('contact',this)">&#128100; Contact</button>
+      <button class="qr_tab" onclick="QST('wifi',this)">&#128246; WiFi</button>
+    </div>
+    <div id="QInputArea">
+      <input class="qr_input" type="text" id="QInp" placeholder="Enter URL (e.g. https://example.com)" oninput="QPreview()"/>
+    </div>
+    <div class="qr_opts">
+      <div class="qr_opt"><label>QR Size</label><select id="QSize" onchange="QGen()"><option value="150">Small (150px)</option><option value="200" selected>Medium (200px)</option><option value="250">Large (250px)</option><option value="300">XL (300px)</option></select></div>
+      <div class="qr_opt"><label>Error Level</label><select id="QErr" onchange="QGen()"><option value="L">Low (L)</option><option value="M" selected>Medium (M)</option><option value="H">High (H)</option></select></div>
+      <div class="qr_opt"><label>Foreground</label><input type="color" id="QFG" value="#000000" onchange="QGen()"/></div>
+      <div class="qr_opt"><label>Background</label><input type="color" id="QBG" value="#ffffff" onchange="QGen()"/></div>
+    </div>
+    <button class="qr_genbtn" onclick="QGen()">&#9889; Generate QR Code</button>
+    <div class="qr_result" id="QResult" style="display:none">
+      <div class="qr_canvas"><canvas id="QCanvas"></canvas></div>
+      <div style="font-size:.8rem;color:#556;margin-bottom:.8rem" id="QLabel">QR Code ready!</div>
+      <button class="qr_dlbtn" onclick="QDL()">&#11015; Download PNG</button>
+    </div>
+  </div>
+</div></div></div>
+</div>
+
+<!-- ======== ECOMMERCE MODAL ======== -->
+<div class="mo" id="Mecom">
+<div class="mdl"><div class="mhd"><div class="mtitle">&#128722; ShopEase <span style="font-size:.72rem;color:#666;font-weight:400;margin-left:.3rem">E-Commerce Demo</span></div><button class="mclose" onclick="CM2('ecom')">&#10005;</button></div>
+<div class="mbody"><div class="ec_app">
+  <div class="ec_nav">
+    <div class="ec_logo">ShopEase</div>
+    <div class="ec_nav_btns">
+      <div style="font-size:.78rem;color:#888">&#128269; Search</div>
+      <button class="ec_cartbtn" onclick="ETC()">&#128722; Cart <span id="ECC">0</span></button>
+    </div>
+  </div>
+  <div style="position:relative;overflow:hidden">
+    <div class="ec_csidebar" id="ECS">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#fff;margin-bottom:1rem">&#128722; Shopping Cart</div>
+      <div id="ECI"></div>
+      <div id="ECE" style="color:#555;font-size:.85rem;text-align:center;padding:2rem 0">Your cart is empty!</div>
+      <div id="ECF" style="display:none">
+        <div class="ec_ctot"><span>Subtotal</span><span id="ECST" style="color:#f59e0b">&#8377;0</span></div>
+        <div style="font-size:.75rem;color:#556;margin-top:.4rem">Free delivery on orders above &#8377;499</div>
+        <button class="ec_ckbtn" onclick="ECO()">Checkout &rarr;</button>
+      </div>
+    </div>
+    <div class="ec_succ" id="ECOS">
+      <div style="font-size:3.5rem;animation:pop .5s ease">&#127881;</div>
+      <h3 style="font-family:'Syne',sans-serif;font-weight:800;color:#f59e0b;font-size:1.2rem;margin:.6rem 0 .3rem">Order Confirmed!</h3>
+      <p style="color:#888;font-size:.85rem">Thank you for shopping!<br/><strong style="color:#f59e0b">Delivery in 3-5 business days</strong></p>
+      <button onclick="EReset()" style="margin-top:1.2rem;background:linear-gradient(135deg,#f59e0b,#ef4444);border:none;color:#fff;padding:.6rem 1.4rem;border-radius:8px;font-size:.85rem;cursor:pointer;font-family:'DM Sans',sans-serif">Continue Shopping</button>
+    </div>
+    <div id="EMain">
+      <div class="ec_hero">
+        <div class="ec_hero_txt"><h2>Mega Sale &#128293;<br/>Up to 60% OFF</h2><p>Shop the best deals today</p><button class="ec_shopbtn" onclick="document.getElementById('EMain').scrollTop=200">Shop Now &darr;</button></div>
+        <div class="ec_hero_emoji">&#127873;</div>
+      </div>
+      <div class="ec_cats">
+        <button class="ec_catb active" onclick="EFC('all',this)">&#128521; All</button>
+        <button class="ec_catb" onclick="EFC('electronics',this)">&#128241; Electronics</button>
+        <button class="ec_catb" onclick="EFC('fashion',this)">&#128084; Fashion</button>
+        <button class="ec_catb" onclick="EFC('home',this)">&#127968; Home</button>
+        <button class="ec_catb" onclick="EFC('beauty',this)">&#128133; Beauty</button>
+        <button class="ec_catb" onclick="EFC('sports',this)">&#9917; Sports</button>
+      </div>
+      <div class="ec_filter">
+        <button class="ec_fb on" onclick="ESF('all',this)">All</button>
+        <button class="ec_fb" onclick="ESF('sale',this)">On Sale</button>
+        <button class="ec_fb" onclick="ESF('top',this)">Top Rated</button>
+        <button class="ec_fb" onclick="ESF('new',this)">New</button>
+      </div>
+      <div class="ec_pgrid" id="EPG"></div>
+    </div>
+  </div>
+</div></div></div>
+</div>
 
 <script>
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-  reveals.forEach(el => observer.observe(el));
+// NAV
+function TM(){document.getElementById('NL').classList.toggle('open')}
+function CM(){document.getElementById('NL').classList.remove('open')}
 
-  // Staggered reveal for grid children
-  document.querySelectorAll('.skills-grid, .projects-grid, .about-stats, .contact-grid').forEach(grid => {
-    grid.querySelectorAll('.reveal').forEach((child, i) => {
-      child.style.transitionDelay = `${i * 0.08}s`;
-    });
-  });
+// REVEAL
+const revs=document.querySelectorAll('.reveal');
+const ro=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1,rootMargin:'0px 0px -30px 0px'});
+revs.forEach((el,i)=>{el.style.transitionDelay=(i%4)*.07+'s';ro.observe(el)});
+
+// MODAL
+function OM(t){document.getElementById('M'+t).classList.add('open');document.body.style.overflow='hidden';if(t==='food')FInit();if(t==='salon')SInit();if(t==='qr')QInit();if(t==='ecom')EInit()}
+function CM2(t){document.getElementById('M'+t).classList.remove('open');document.body.style.overflow=''}
+document.querySelectorAll('.mo').forEach(el=>el.addEventListener('click',e=>{if(e.target===el)CM2(el.id.replace('M',''))}));
+
+// ========== FOOD APP ==========
+const RESTS=[
+  {id:1,n:'Pizza Palace',e:'&#127829;',c:'pizza',r:'4.8',t:'25-30 min',tag:'Best Seller',bg:'#2d1a10',items:[{n:'Margherita Pizza',p:199},{n:'Pepperoni Pizza',p:249},{n:'Garlic Bread',p:79},{n:'Pasta Alfredo',p:179}]},
+  {id:2,n:'Burger Barn',e:'&#127828;',c:'burger',r:'4.6',t:'20-25 min',tag:'Popular',bg:'#1a1a10',items:[{n:'Classic Burger',p:149},{n:'Cheese Burst Burger',p:179},{n:'Crispy Fries',p:69},{n:'Milkshake',p:99}]},
+  {id:3,n:'Biryani House',e:'&#127834;',c:'biryani',r:'4.9',t:'35-40 min',tag:'Top Rated',bg:'#1a1208',items:[{n:'Chicken Biryani',p:229},{n:'Veg Biryani',p:179},{n:'Mutton Biryani',p:279},{n:'Raita',p:39}]},
+  {id:4,n:'Dragon Wok',e:'&#128801;',c:'chinese',r:'4.5',t:'30-35 min',tag:'New',bg:'#0d1a10',items:[{n:'Veg Fried Rice',p:149},{n:'Hakka Noodles',p:159},{n:'Manchurian',p:129},{n:'Spring Rolls',p:99}]},
+  {id:5,n:'Sweet Dreams',e:'&#127856;',c:'dessert',r:'4.7',t:'15-20 min',tag:'Quick',bg:'#1a0d1a',items:[{n:'Chocolate Cake',p:129},{n:'Gulab Jamun',p:79},{n:'Ice Cream Sundae',p:99},{n:'Brownie',p:89}]},
+  {id:6,n:'Taco Fiesta',e:'&#127790;',c:'burger',r:'4.4',t:'25-30 min',tag:'Trending',bg:'#1a1505',items:[{n:'Veg Tacos (2)',p:119},{n:'Chicken Tacos (2)',p:149},{n:'Nachos',p:99},{n:'Lemonade',p:59}]},
+];
+let FC={};let FInited=false;
+function FInit(){if(FInited)return;FInited=true;FRend(RESTS)}
+function FRend(list){document.getElementById('FRG').innerHTML=list.length?list.map(r=>`<div class="rc" onclick="FOpen(${r.id})"><div class="rci" style="background:linear-gradient(135deg,${r.bg},#0a0a14)">${r.e}</div><div class="rcd"><div class="rcn">${r.n}</div><div class="rcm"><span class="rcr">&#11088; ${r.r}</span><span class="rct">&#128336; ${r.t}</span></div><span class="rcg">${r.tag}</span></div></div>`).join(''):`<div style="grid-column:1/-1;text-align:center;padding:2rem;color:#555">No restaurants found</div>`}
+function FOpen(id){
+  const r=RESTS.find(x=>x.id===id);
+  document.getElementById('FMain').innerHTML=`<div style="padding:1.2rem 1.4rem"><button onclick="FBack()" style="background:rgba(255,255,255,.06);border:1px solid #252535;color:#888;padding:.4rem .9rem;border-radius:8px;font-size:.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:1rem">&larr; Back</button><div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem"><div style="font-size:2.5rem;background:linear-gradient(135deg,${r.bg},#0a0a14);width:60px;height:60px;border-radius:12px;display:flex;align-items:center;justify-content:center">${r.e}</div><div><div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:#fff">${r.n}</div><div style="font-size:.78rem;color:#fbbf24;margin-top:.2rem">&#11088; ${r.r} &middot; &#128336; ${r.t}</div></div></div><div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;color:#e8e8f0;margin-bottom:.8rem">Menu</div>${r.items.map(it=>`<div style="background:#13131e;border:1px solid #1e1e2e;border-radius:10px;padding:1rem;display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem"><div><div style="font-size:.9rem;color:#e8e8f0;font-weight:500">${it.n}</div><div style="font-size:.82rem;color:#ff9a6c;font-weight:600;margin-top:.25rem">&#8377;${it.p}</div></div><button onclick="FAC('${it.n.replace(/'/g,'\'')}',${it.p})" style="background:linear-gradient(135deg,#ff6b35,#ff3366);border:none;color:#fff;padding:.4rem .9rem;border-radius:8px;font-size:.8rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif">+ Add</button></div>`).join('')}</div>`;
+}
+function FBack(){document.getElementById('FMain').innerHTML=`<div class="fdhero"><h2>Hungry? We got you. &#127869;</h2><p>Order from 500+ restaurants near you</p><div class="fdsearch"><input type="text" placeholder="Search restaurants..." id="FSI" oninput="FSR(this.value)"/><button>&#128269;</button></div></div><div class="fdcats"><button class="catb active" onclick="FFC('all',this)">&#127869; All</button><button class="catb" onclick="FFC('pizza',this)">&#127829; Pizza</button><button class="catb" onclick="FFC('burger',this)">&#127828; Burgers</button><button class="catb" onclick="FFC('biryani',this)">&#127834; Biryani</button><button class="catb" onclick="FFC('chinese',this)">&#128801; Chinese</button><button class="catb" onclick="FFC('dessert',this)">&#127856; Desserts</button></div><div class="fdst">Popular Restaurants</div><div class="rg" id="FRG"></div>`;FRend(RESTS)}
+function FFC(c,btn){document.querySelectorAll('.catb').forEach(b=>b.classList.remove('active'));btn.classList.add('active');FRend(c==='all'?RESTS:RESTS.filter(r=>r.c===c))}
+function FSR(q){FRend(RESTS.filter(r=>r.n.toLowerCase().includes(q.toLowerCase())))}
+function FAC(n,p){if(!FC[n])FC[n]={price:p,qty:0};FC[n].qty++;FUI()}
+function FUI(){const tot=Object.values(FC).reduce((s,i)=>s+i.price*i.qty,0);const cnt=Object.values(FC).reduce((s,i)=>s+i.qty,0);document.getElementById('fcnt').textContent=cnt;const li=document.getElementById('FCI'),em=document.getElementById('FCE'),ft=document.getElementById('FCF');if(!cnt){li.innerHTML='';em.style.display='block';ft.style.display='none';return}em.style.display='none';ft.style.display='block';li.innerHTML=Object.entries(FC).filter(([,v])=>v.qty>0).map(([n,{price,qty}])=>`<div class="citm"><div><div class="cinm">${n}</div><div class="cipr">&#8377;${price*qty}</div></div><div class="qc"><button class="qb" onclick="FCQ('${n.replace(/'/g,'\'')}' ,-1)">&minus;</button><span class="qn">${qty}</span><button class="qb" onclick="FCQ('${n.replace(/'/g,'\'')}',1)">+</button></div></div>`).join('');document.getElementById('FCT').textContent='&#8377;'+tot}
+function FCQ(n,d){if(FC[n])FC[n].qty=Math.max(0,FC[n].qty+d);FUI()}
+function FTC(){document.getElementById('FCS').classList.toggle('open')}
+function FPO(){document.getElementById('FCS').classList.remove('open');document.getElementById('FMain').style.display='none';document.getElementById('FOS').style.display='block'}
+function FReset(){FC={};FUI();document.getElementById('FOS').style.display='none';document.getElementById('FMain').style.display='block';FBack()}
+
+// ========== RIDE APP ==========
+let RSel='bike',RTmr;
+const RFares={bike:{base:25,dist:10},auto:{base:40,dist:20},cab:{base:70,dist:25}};
+function RST(t){RSel=t;['bike','auto','cab'].forEach(x=>document.getElementById('RT-'+x).classList.toggle('sel',x===t));RUF()}
+function RUF(){const d=document.getElementById('RTO').value;const m=d.length>5?2:1;const f=RFares[RSel];const di=f.dist*m;const tot=f.base+di+2;document.getElementById('RFB').textContent='&#8377;'+f.base;document.getElementById('RFD').textContent='&#8377;'+di;document.getElementById('RFT').textContent='&#8377;'+tot;['bike','auto','cab'].forEach(x=>{const fv=RFares[x];document.getElementById('RP-'+x).textContent='&#8377;'+(fv.base+fv.dist*m+2)})}
+function RBK(){const d=document.getElementById('RTO').value;if(!d){document.getElementById('RTO').style.border='1px solid #ff6b6b';document.getElementById('RTO').focus();return}document.getElementById('RTO').style.border='';document.getElementById('RBK').style.display='none';document.getElementById('RFN').style.display='block';setTimeout(()=>{document.getElementById('RFN').style.display='none';document.getElementById('BF').textContent=document.getElementById('RFT').textContent;document.getElementById('RFD2').style.display='block';RETA(180)},2500)}
+function RETA(s){clearInterval(RTmr);let r=s;RTmr=setInterval(()=>{r--;const m=Math.floor(r/60),sc=r%60;const el=document.getElementById('ETA');if(el)el.textContent=m+':'+(sc<10?'0':'')+sc;if(r<=0){clearInterval(RTmr);if(el)el.textContent='Arrived!&#127881;'}},1000)}
+function RCN(){clearInterval(RTmr);document.getElementById('RFD2').style.display='none';document.getElementById('RBK').style.display='block';document.getElementById('RTO').value='';RUF()}
+
+// ========== SALON APP ==========
+const SVCS=[
+  {id:'haircut',n:'Haircut',e:'&#9986;',p:299,t:'45 min',desc:'Classic cut & style'},
+  {id:'color',n:'Hair Color',e:'&#127912;',p:999,t:'2 hrs',desc:'Full color treatment'},
+  {id:'facial',n:'Facial',e:'&#127774;',p:599,t:'1 hr',desc:'Deep cleanse glow'},
+  {id:'manicure',n:'Manicure',e:'&#128133;',p:349,t:'45 min',desc:'Nail care & polish'},
+  {id:'waxing',n:'Waxing',e:'&#10024;',p:399,t:'30 min',desc:'Full body wax'},
+  {id:'spa',n:'Spa Massage',e:'&#129494;',p:1299,t:'90 min',desc:'Relaxing full body spa'},
+];
+const SLOTS=['10:00 AM','10:45 AM','11:30 AM','12:15 PM','2:00 PM','2:45 PM','3:30 PM','4:15 PM','5:00 PM'];
+const BUSY_SLOTS=['10:00 AM','2:45 PM','4:15 PM'];
+let SSEL=null,SSLOT=null,SInited=false;
+function SInit(){if(SInited)return;SInited=true;document.getElementById('SSVC').innerHTML=SVCS.map(s=>`<div class="sl_svc" id="SV-${s.id}" onclick="SSV('${s.id}')"><span class="sel_badge">&#10003;</span><span class="icon">${s.e}</span><div class="sn">${s.n}</div><div class="sp">&#8377;${s.p}</div><div class="st">&#128336; ${s.t}</div></div>`).join('');const today=new Date().toISOString().split('T')[0];document.getElementById('SDate').min=today;document.getElementById('SDate').value=today;document.getElementById('SSlots').innerHTML=SLOTS.map(sl=>`<div class="sl_slot${BUSY_SLOTS.includes(sl)?' busy':''}" onclick="SSL('${sl}',this)">${sl}</div>`).join('')}
+function SSV(id){if(SSEL){document.getElementById('SV-'+SSEL).classList.remove('sel')}SSEL=id;document.getElementById('SV-'+id).classList.add('sel');document.getElementById('SForm').style.display='block';USSum()}
+function SSL(s,el){if(el.classList.contains('busy'))return;document.querySelectorAll('.sl_slot').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');SSLOT=s;USSum()}
+function USSum(){const svc=SVCS.find(x=>x.id===SSEL);const date=document.getElementById('SDate').value;if(svc&&SSLOT&&date){const ss=document.getElementById('SSummary');ss.style.display='block';document.getElementById('SSumContent').innerHTML=`<strong>${svc.n}</strong> &middot; ${svc.t}<br/>Date: ${date}<br/>Time: ${SSLOT}<br/>Price: <span style="color:#c084fc">&#8377;${svc.p}</span>`}}
+function SBK(){if(!SSEL){alert('Please select a service!');return}if(!SSLOT){alert('Please select a time slot!');return}if(!document.getElementById('SName').value.trim()){alert('Please enter your name!');return}const svc=SVCS.find(x=>x.id===SSEL);document.getElementById('SMain').style.display='none';document.getElementById('SSuccMsg').textContent=`${svc.n} booked for ${SSLOT} on ${document.getElementById('SDate').value}`;document.getElementById('SSucc').style.display='block'}
+function SReset(){SSEL=null;SSLOT=null;document.getElementById('SSucc').style.display='none';document.getElementById('SMain').style.display='block';document.querySelectorAll('.sl_svc').forEach(x=>x.classList.remove('sel'));document.querySelectorAll('.sl_slot').forEach(x=>x.classList.remove('sel'));document.getElementById('SForm').style.display='none';document.getElementById('SSummary').style.display='none';document.getElementById('SName').value='';document.getElementById('SPhone').value=''}
+
+// ========== QR APP ==========
+let QType='url',QInited=false;
+function QInit(){if(QInited)return;QInited=true;setTimeout(QGen,300)}
+function QST(t,btn){QType=t;document.querySelectorAll('.qr_tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const inp=document.getElementById('QInp');const labels={url:'Enter URL (e.g. https://example.com)',text:'Enter any text to encode',contact:'Enter name, phone, email (comma separated)',wifi:'Enter: NetworkName,Password'};inp.placeholder=labels[t];inp.value='';document.getElementById('QResult').style.display='none'}
+function QPreview(){if(document.getElementById('QInp').value.length>2)QGen()}
+function QGen(){
+  const val=document.getElementById('QInp').value||'https://umang-portfolio.netlify.app';
+  const size=parseInt(document.getElementById('QSize').value);
+  const fg=document.getElementById('QFG').value;
+  const bg=document.getElementById('QBG').value;
+  let data=val;
+  if(QType==='contact'){const[n,p,e]=(val+',,,').split(',');data=`BEGIN:VCARD\nVERSION:3.0\nFN:${n}\nTEL:${p}\nEMAIL:${e}\nEND:VCARD`}
+  if(QType==='wifi'){const[ssid,pass]=(val+',').split(',');data=`WIFI:T:WPA;S:${ssid};P:${pass};;`}
+  const c=document.getElementById('QCanvas');c.width=size;c.height=size;
+  const ctx=c.getContext('2d');ctx.fillStyle=bg;ctx.fillRect(0,0,size,size);
+  const mods=Math.ceil(data.length/5)+10;const ms=Math.floor(size/(mods+4));const off=Math.floor((size-ms*mods)/2);
+  ctx.fillStyle=fg;
+  const pattern=[];for(let i=0;i<mods;i++){pattern[i]=[];for(let j=0;j<mods;j++){const seed=(i*mods+j+data.charCodeAt((i*j)%data.length))%7;pattern[i][j]=seed<4}}
+  // finder patterns
+  [[0,0],[0,mods-7],[mods-7,0]].forEach(([r,c2])=>{ctx.fillStyle=fg;ctx.fillRect(off+c2*ms,off+r*ms,7*ms,7*ms);ctx.fillStyle=bg;ctx.fillRect(off+c2*ms+ms,off+r*ms+ms,5*ms,5*ms);ctx.fillStyle=fg;ctx.fillRect(off+c2*ms+2*ms,off+r*ms+2*ms,3*ms,3*ms)});
+  for(let i=0;i<mods;i++)for(let j=0;j<mods;j++){const inFinder=(i<8&&j<8)||(i<8&&j>=mods-8)||(i>=mods-8&&j<8);if(!inFinder&&pattern[i][j]){ctx.fillStyle=fg;ctx.fillRect(off+j*ms,off+i*ms,ms-1,ms-1)}}
+  document.getElementById('QResult').style.display='block';document.getElementById('QLabel').textContent='QR Code for: '+(val.length>40?val.substring(0,40)+'...':val);
+}
+function QDL(){const c=document.getElementById('QCanvas');const a=document.createElement('a');a.download='qrcode_umang.png';a.href=c.toDataURL();a.click()}
+
+// ========== ECOMMERCE APP ==========
+const EPRODS=[
+  {id:1,n:'Wireless Earbuds',e:'&#127911;',c:'electronics',p:1299,op:2499,r:'4.7',badge:'52% OFF',cat:'top'},
+  {id:2,n:'Smart Watch',e:'&#8987;',c:'electronics',p:2999,op:5999,r:'4.5',badge:'50% OFF',cat:'sale'},
+  {id:3,n:'Men's Jacket',e:'&#129381;',c:'fashion',p:899,op:1799,r:'4.3',badge:'50% OFF',cat:'top'},
+  {id:4,n:'Sneakers',e:'&#128094;',c:'fashion',p:1499,op:2999,r:'4.6',badge:'NEW',cat:'new'},
+  {id:5,n:'Coffee Maker',e:'&#9749;',c:'home',p:1799,op:3499,r:'4.8',badge:'Top Pick',cat:'top'},
+  {id:6,n:'LED Desk Lamp',e:'&#128161;',c:'home',p:599,op:999,r:'4.4',badge:'HOT',cat:'sale'},
+  {id:7,n:'Face Serum',e:'&#128138;',c:'beauty',p:499,op:899,r:'4.7',badge:'NEW',cat:'new'},
+  {id:8,n:'Yoga Mat',e:'&#129338;',c:'sports',p:799,op:1299,r:'4.5',badge:'Popular',cat:'top'},
+  {id:9,n:'Bluetooth Speaker',e:'&#128266;',c:'electronics',p:1999,op:3999,r:'4.6',badge:'47% OFF',cat:'sale'},
+  {id:10,n:'Sunglasses',e:'&#128374;',c:'fashion',p:699,op:1299,r:'4.2',badge:'NEW',cat:'new'},
+  {id:11,n:'Air Purifier',e:'&#127756;',c:'home',p:3499,op:5999,r:'4.8',badge:'Best Seller',cat:'top'},
+  {id:12,n:'Lip Gloss Set',e:'&#128144;',c:'beauty',p:349,op:599,r:'4.5',badge:'Sale',cat:'sale'},
+];
+let EC={},ECAct='all',EFAct='all',EInited=false;
+function EInit(){if(EInited)return;EInited=true;ERend()}
+function ERend(){let list=EPRODS;if(ECAct!=='all')list=list.filter(p=>p.c===ECAct);if(EFAct!=='all')list=list.filter(p=>p.cat===EFAct);document.getElementById('EPG').innerHTML=list.map(p=>`<div class="ec_pcard"><div class="ec_pimg" style="background:linear-gradient(135deg,#1a1200,#2a1e00)"><span style="font-size:3rem">${p.e}</span><span class="ec_badge2">${p.badge}</span></div><div class="ec_pinfo"><div class="ec_pname">${p.n}</div><div class="ec_prating">&#11088; ${p.r}</div><div class="ec_pprices"><span class="ec_pp">&#8377;${p.p}</span><span class="ec_pop">&#8377;${p.op}</span></div><button class="ec_addbtn" onclick="EAC(${p.id})">+ Add to Cart</button></div></div>`).join('')}
+function EFC(c,btn){ECAct=c;document.querySelectorAll('.ec_catb').forEach(b=>b.classList.remove('active'));btn.classList.add('active');ERend()}
+function ESF(f,btn){EFAct=f;document.querySelectorAll('.ec_fb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');ERend()}
+function EAC(id){const p=EPRODS.find(x=>x.id===id);if(!EC[id])EC[id]={...p,qty:0};EC[id].qty++;EUI();// animate btn
+}
+function EUI(){const tot=Object.values(EC).reduce((s,i)=>s+i.p*i.qty,0);const cnt=Object.values(EC).reduce((s,i)=>s+i.qty,0);document.getElementById('ECC').textContent=cnt;const li=document.getElementById('ECI'),em=document.getElementById('ECE'),ft=document.getElementById('ECF');if(!cnt){li.innerHTML='';em.style.display='block';ft.style.display='none';return}em.style.display='none';ft.style.display='block';li.innerHTML=Object.values(EC).filter(i=>i.qty>0).map(i=>`<div class="ec_citem"><div class="ec_cico">${i.e}</div><div style="flex:1"><div class="ec_cname">${i.n}</div><div class="ec_cprice">&#8377;${i.p*i.qty}</div><div class="ec_qc"><button class="ec_qb" onclick="ECQ(${i.id},-1)">&minus;</button><span class="ec_qn">${i.qty}</span><button class="ec_qb" onclick="ECQ(${i.id},1)">+</button></div></div></div>`).join('');document.getElementById('ECST').textContent='&#8377;'+tot}
+function ECQ(id,d){if(EC[id])EC[id].qty=Math.max(0,EC[id].qty+d);EUI()}
+function ETC(){document.getElementById('ECS').classList.toggle('open')}
+function ECO(){document.getElementById('ECS').classList.remove('open');document.getElementById('EMain').style.display='none';document.getElementById('ECOS').style.display='block'}
+function EReset(){EC={};EUI();document.getElementById('ECOS').style.display='none';document.getElementById('EMain').style.display='block';ECAct='all';EFAct='all';ERend()}
 </script>
 </body>
 </html>
